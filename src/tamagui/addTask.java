@@ -51,13 +51,44 @@ public class addTask extends javax.swing.JFrame {
         while (difficultyButtons.hasMoreElements()) {
             AbstractButton difficultyButton = difficultyButtons.nextElement();
             if (difficultyButton.isSelected()) {
-                    System.out.println("Selected Difficulty: "+ difficultyButton.getText());
                     return difficultyButton.getText();
             }
         }
         return null;
     }
 
+    private String validateTaskName(String taskName) {
+        if (taskName == null || taskName.isEmpty()){
+            return "Task Name is empty";
+        }
+        if (taskName.indexOf('-') > -1){
+            return "Task Name cannot contains special character '-'";
+        }
+        return "";
+    }
+    
+    private String validateDueDate(String dueDate) {
+        if (dueDate == null || dueDate.isEmpty()){
+            return "Due Date is empty";
+        }
+        String []dueDates = dueDate.split("/");
+        if (dueDates.length != 3){
+            return "Due Date needs to be in mm/dd/yyyy";
+        }
+        return "";
+    }
+    
+    private String validateDueTime(String dueTime) {
+        if (dueTime == null || dueTime.isEmpty()){
+            return "Due Time is empty";
+        }
+        String []dueTimes = dueTime.split(":");
+        if (dueTimes.length != 2){
+            return "Due Time needs to be in hh:mm";
+        }
+        return "";
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +112,6 @@ public class addTask extends javax.swing.JFrame {
         Easy = new javax.swing.JCheckBox();
         Medium = new javax.swing.JCheckBox();
         Hard = new javax.swing.JCheckBox();
-        AmPm = new javax.swing.JComboBox<>();
         Done = new javax.swing.JButton();
         TaskNameLabel = new javax.swing.JLabel();
         DueDateLabel = new javax.swing.JLabel();
@@ -111,13 +141,6 @@ public class addTask extends javax.swing.JFrame {
         Difficulty.add(Hard);
         Hard.setText("Hard");
 
-        AmPm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "AM", "PM" }));
-        AmPm.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AmPmActionPerformed(evt);
-            }
-        });
-
         Done.setText("Done");
         Done.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -127,7 +150,7 @@ public class addTask extends javax.swing.JFrame {
 
         TaskNameLabel.setText("*Task Name");
 
-        DueDateLabel.setText("Due Date (mm/dd/yy) :");
+        DueDateLabel.setText("Due Date (mm/dd/yyyy) :");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -136,20 +159,6 @@ public class addTask extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(3, 3, 3)
-                        .addComponent(DueDateLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(DueTimeLabel)
-                        .addGap(13, 13, 13)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(Done)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jScrollPane3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(AmPm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
@@ -162,8 +171,27 @@ public class addTask extends javax.swing.JFrame {
                             .addComponent(Medium)
                             .addComponent(Hard)
                             .addComponent(Easy))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addGap(15, 15, 15))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(126, 126, 126)
+                                .addComponent(Done)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(9, 9, 9)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(DueDateLabel)
+                                    .addComponent(DueTimeLabel))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGap(0, 6, Short.MAX_VALUE))
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(jScrollPane3)
+                                        .addGap(6, 6, 6)))))
+                        .addGap(15, 15, 15))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(TaskNameLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 121, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -197,17 +225,18 @@ public class addTask extends javax.swing.JFrame {
                 .addComponent(Hard)
                 .addGap(1, 1, 1)
                 .addComponent(CompleteByLabel)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DueDateLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane2))
-                .addGap(17, 17, 17)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(DueTimeLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jScrollPane3)
-                    .addComponent(AmPm))
-                .addGap(18, 18, 18)
-                .addComponent(Done)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(DueDateLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(21, 21, 21)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(DueTimeLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 23, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(26, 26, 26)
+                                .addComponent(Done))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(51, 51, 51))
         );
 
@@ -220,8 +249,9 @@ public class addTask extends javax.swing.JFrame {
        
         //Sets task Name. Pops error message if field is empty
         taskName = TaskName.getText().trim();
-        if (taskName == null || taskName.isEmpty()){
-            error.SetErrorMsg("Task Name is empty");
+        String errMsg = validateTaskName(taskName);
+        if (!errMsg.equals("")){
+            error.SetErrorMsg(errMsg);
             error.setVisible(true);
             return;
         }
@@ -232,30 +262,29 @@ public class addTask extends javax.swing.JFrame {
             return;
         }
         
+        // Date validation
         dueDate = dueDateField.getText().trim();
-        // TODO add proper date validation
-        if (dueDate == null || dueDate.isEmpty() || (dueDate.split("/").length != 3)){
-            error.SetErrorMsg("Due Date is invalid");
+        errMsg = validateDueDate(dueDate);
+        if (!errMsg.equals("")){
+            error.SetErrorMsg(errMsg);
             error.setVisible(true);
             return;
         }
-        // TODO add proper Time validation
+        // Time validation
         dueTime = dueTimeField.getText().trim();
-        if (dueTime == null || dueTime.isEmpty() || (dueTime.split(":").length != 2)){
-            error.SetErrorMsg("Due Time is invalid");
+        errMsg = validateDueTime(dueTime);
+        if (!errMsg.equals("")){
+            error.SetErrorMsg(errMsg);
             error.setVisible(true);
             return;
         }
         
         Task newTask = new Task(taskName, difficulty, dueDate, dueTime);
         home.addTask(newTask);
+        System.out.println("Adding Task: "+ newTask);
         // Close the addTask window -- Last thing to run when "Done" is pressed.
         this.dispose();
     }//GEN-LAST:event_DoneActionPerformed
-
-    private void AmPmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AmPmActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_AmPmActionPerformed
 
 // Set method for taskName
 public  void setTaskName(String taskName){
@@ -276,7 +305,6 @@ public String getDifficulty() {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AddTaskLabel;
-    private javax.swing.JComboBox<String> AmPm;
     private javax.swing.JLabel CompleteByLabel;
     private javax.swing.ButtonGroup Difficulty;
     private javax.swing.JButton Done;

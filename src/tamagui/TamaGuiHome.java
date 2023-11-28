@@ -218,7 +218,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             return;
         }
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
-        System.out.println("Removing Task: "+ task);
+        System.out.println("Editing Task: "+ task);
         String []tasks= task.split("-");
         this.removeTask(SelectedIndex);
         

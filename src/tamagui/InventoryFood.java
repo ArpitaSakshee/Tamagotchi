@@ -4,6 +4,9 @@
  */
 package tamagui;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Maya
@@ -30,14 +33,20 @@ public class InventoryFood extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         foodList = new javax.swing.JList<>();
         useItem = new javax.swing.JButton();
+        FoodImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Food");
 
         foodList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Food 1", "Food 2", "Food 3", "Food 4", "Food 5" };
+            String[] strings = { "Candy", "Chocolate", "Donut", "Lolipop", "Toffee" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        foodList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                foodListValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(foodList);
 
@@ -54,17 +63,27 @@ public class InventoryFood extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(useItem)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(useItem)
+                        .addGap(34, 34, 34))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(FoodImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(25, Short.MAX_VALUE))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(useItem)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(20, 20, 20)
+                        .addComponent(FoodImage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(useItem)))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
@@ -97,6 +116,15 @@ public class InventoryFood extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_useItemActionPerformed
+
+    private void foodListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_foodListValueChanged
+        // TODO add your handling code here:
+        String food = foodList.getSelectedValue();
+        String foodIconPath = "Images/" + food + ".png";
+        ImageIcon foodIcon = new ImageIcon(new ImageIcon(foodIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
+        FoodImage.setIcon(foodIcon); 
+        FoodImage.setVisible(true);
+    }//GEN-LAST:event_foodListValueChanged
 
     /**
      * @param args the command line arguments
@@ -141,6 +169,7 @@ public class InventoryFood extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel FoodImage;
     private javax.swing.JList<String> foodList;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
