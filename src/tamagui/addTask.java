@@ -4,6 +4,9 @@
  */
 package tamagui;
 
+import java.text.SimpleDateFormat;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
 
@@ -35,8 +38,8 @@ public class addTask extends javax.swing.JFrame {
         error = new Error();
         home = tamaGuiHome;
         this.TaskName.setText(taskName);
-        this.dueDateField.setText(dueDate);
-        this.dueTimeField.setText(dueTime);
+        this.dueTimeField.setText(dueDate);
+        this.dueDateField.setText(dueTime);
         this.AddTaskLabel.setText("Edit Task");
         switch (difficulty) {
             case "Easy" -> this.Easy.setSelected(true);
@@ -102,9 +105,9 @@ public class addTask extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         TaskName = new javax.swing.JTextPane();
         jScrollPane3 = new javax.swing.JScrollPane();
-        dueTimeField = new javax.swing.JTextPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
         dueDateField = new javax.swing.JTextPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        dueTimeField = new javax.swing.JTextPane();
         AddTaskLabel = new javax.swing.JLabel();
         DueTimeLabel = new javax.swing.JLabel();
         TaskDifficultyLabel = new javax.swing.JLabel();
@@ -120,9 +123,9 @@ public class addTask extends javax.swing.JFrame {
 
         jScrollPane1.setViewportView(TaskName);
 
-        jScrollPane3.setViewportView(dueTimeField);
+        jScrollPane3.setViewportView(dueDateField);
 
-        jScrollPane2.setViewportView(dueDateField);
+        jScrollPane2.setViewportView(dueTimeField);
 
         AddTaskLabel.setText("Add Task");
 
@@ -279,9 +282,21 @@ public class addTask extends javax.swing.JFrame {
             return;
         }
         
+        // string format date
+        String taskDate = dueDate + " "+ dueTime;
+        Date dateFormat;
+        try {
+            dateFormat =new SimpleDateFormat("mm/dd/yyyy HH:mm").parse(taskDate);  
+  
+        } catch(Exception e){ 
+            error.SetErrorMsg(e.getMessage());
+            error.setVisible(true);
+            return;
+        }
+        
         Task newTask = new Task(taskName, difficulty, dueDate, dueTime);
         home.addTask(newTask);
-        System.out.println("Adding Task: "+ newTask);
+        System.out.println("Adding Task: "+ newTask.toString());
         // Close the addTask window -- Last thing to run when "Done" is pressed.
         this.dispose();
     }//GEN-LAST:event_DoneActionPerformed
