@@ -4,6 +4,9 @@
  */
 package tamagui;
 
+import java.awt.Image;
+import java.util.Random;
+
 import javax.swing.ImageIcon;
 
 /**
@@ -17,6 +20,11 @@ public class InteractionScreen extends javax.swing.JFrame {
      */
     public InteractionScreen() {
         initComponents();
+        String [] avatars = {"croc", "dog", "owl", "rabbit", "radish", "yippee"};
+        Random rand = new Random();
+        String avatar = avatars[rand.nextInt(avatars.length)];
+        String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
+        ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarPath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
         Interactfriend.setIcon(iconLogo); 
     }
 
@@ -152,7 +160,6 @@ public class InteractionScreen extends javax.swing.JFrame {
         );
 
         Interactfriend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        Interactfriend.setText("jLabel1");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

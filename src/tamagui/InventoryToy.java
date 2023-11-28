@@ -4,6 +4,9 @@
  */
 package tamagui;
 
+import java.awt.Image;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Maya
@@ -15,6 +18,15 @@ public class InventoryToy extends javax.swing.JFrame {
      */
     public InventoryToy() {
         initComponents();
+        addToys();
+    }
+    
+    public void addToys(){
+       toyList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Ball", "Bone", "Duck", "Fish", "Dog" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
     }
 
     /**
@@ -30,6 +42,7 @@ public class InventoryToy extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         toyList = new javax.swing.JList<>();
         useItem = new javax.swing.JButton();
+        toyImage = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Toys");
@@ -38,6 +51,11 @@ public class InventoryToy extends javax.swing.JFrame {
             String[] strings = { "Toy 1", "Toy 2", "Toy 3", "Toy 4", "Toy 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
+        });
+        toyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                toyListValueChanged(evt);
+            }
         });
         jScrollPane2.setViewportView(toyList);
 
@@ -53,18 +71,27 @@ public class InventoryToy extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(useItem)
+                .addContainerGap()
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(71, 71, 71)
+                        .addComponent(useItem))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(useItem)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(30, 30, 30)
+                        .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(useItem)))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
@@ -95,6 +122,15 @@ public class InventoryToy extends javax.swing.JFrame {
             case 5:
         }        
     }//GEN-LAST:event_useItemActionPerformed
+
+    private void toyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_toyListValueChanged
+        // TODO add your handling code here:
+        String toy = toyList.getSelectedValue();
+        String toyIconPath = "Images/Toy/" + toy + ".png";
+        ImageIcon foodIcon = new ImageIcon(new ImageIcon(toyIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
+        toyImage.setIcon(foodIcon); 
+        toyImage.setVisible(true);
+    }//GEN-LAST:event_toyListValueChanged
 
     /**
      * @param args the command line arguments
@@ -137,6 +173,7 @@ public class InventoryToy extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JLabel toyImage;
     private javax.swing.JList<String> toyList;
     private javax.swing.JButton useItem;
     // End of variables declaration//GEN-END:variables

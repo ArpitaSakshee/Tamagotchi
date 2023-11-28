@@ -18,6 +18,7 @@ public class InventoryFood extends javax.swing.JFrame {
      */
     public InventoryFood() {
         initComponents();
+        addFood();
     }
 
     /**
@@ -120,12 +121,20 @@ public class InventoryFood extends javax.swing.JFrame {
     private void foodListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_foodListValueChanged
         // TODO add your handling code here:
         String food = foodList.getSelectedValue();
-        String foodIconPath = "Images/" + food + ".png";
+        String foodIconPath = "Images/Food/" + food + ".png";
         ImageIcon foodIcon = new ImageIcon(new ImageIcon(foodIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
         FoodImage.setIcon(foodIcon); 
         FoodImage.setVisible(true);
     }//GEN-LAST:event_foodListValueChanged
 
+    public void addFood(){
+       foodList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Candy", "Chocolate", "Donut", "Lolipop", "Toffee" };
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+    }
+    
     /**
      * @param args the command line arguments
      */
