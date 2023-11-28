@@ -5,7 +5,6 @@
 package tamagui;
 
 import java.text.SimpleDateFormat;
-import java.time.format.DateTimeFormatter;
 import java.util.Date;
 import java.util.Enumeration;
 import javax.swing.AbstractButton;
@@ -22,6 +21,7 @@ public class addTask extends javax.swing.JFrame {
     private String dueTime;
     private final Error error;
     private TamaGuiHome home;
+    private boolean isEditTask;
     
     /**
      * Creates new form addTask
@@ -31,6 +31,7 @@ public class addTask extends javax.swing.JFrame {
         initComponents();
         error = new Error();
         home = tamaGuiHome;
+        this.isEditTask = false;
     }
     
     public addTask(TamaGuiHome tamaGuiHome, String taskName, String difficulty, String dueDate, String dueTime) {
@@ -38,14 +39,15 @@ public class addTask extends javax.swing.JFrame {
         error = new Error();
         home = tamaGuiHome;
         this.TaskName.setText(taskName);
-        this.dueTimeField.setText(dueDate);
-        this.dueDateField.setText(dueTime);
+        this.dueDateField.setText(dueDate);
+        this.dueTimeField.setText(dueTime);
         this.AddTaskLabel.setText("Edit Task");
         switch (difficulty) {
             case "Easy" -> this.Easy.setSelected(true);
             case "Medium" -> this.Medium.setSelected(true);
             default -> this.Hard.setSelected(true);
         }
+        this.isEditTask = true;
     }
     
     private String getSelectedDifficulty()
@@ -282,7 +284,7 @@ public class addTask extends javax.swing.JFrame {
             return;
         }
         
-        // string format date
+        // TODO: Check if we can save DATE object 
         String taskDate = dueDate + " "+ dueTime;
         Date dateFormat;
         try {
@@ -298,6 +300,10 @@ public class addTask extends javax.swing.JFrame {
         home.addTask(newTask);
         System.out.println("Adding Task: "+ newTask.toString());
         // Close the addTask window -- Last thing to run when "Done" is pressed.
+        // Update points if it is not edit task
+        if (!this.isEditTask){
+            home.addPoints(1);
+        }
         this.dispose();
     }//GEN-LAST:event_DoneActionPerformed
 

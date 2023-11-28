@@ -11,7 +11,7 @@ import javax.swing.ImageIcon;
  *
  * @author Maya
  */
-public class InventoryToy extends javax.swing.JFrame {
+public final class InventoryToy extends javax.swing.JFrame {
 
     /**
      * Creates new form ToyInventory
@@ -24,7 +24,9 @@ public class InventoryToy extends javax.swing.JFrame {
     public void addToys(){
        toyList.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Ball", "Bone", "Duck", "Fish", "Dog" };
+            @Override
             public int getSize() { return strings.length; }
+            @Override
             public String getElementAt(int i) { return strings[i]; }
         });
     }
@@ -47,11 +49,6 @@ public class InventoryToy extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Toys");
 
-        toyList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Toy 1", "Toy 2", "Toy 3", "Toy 4", "Toy 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         toyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 toyListValueChanged(evt);
@@ -113,14 +110,7 @@ public class InventoryToy extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void useItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useItemActionPerformed
-        // TODO add your handling code here:
-        switch(toyList.getSelectedIndex()) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-        }        
+             
     }//GEN-LAST:event_useItemActionPerformed
 
     private void toyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_toyListValueChanged
@@ -163,10 +153,8 @@ public class InventoryToy extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InventoryToy().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new InventoryToy().setVisible(true);
         });
     }
 

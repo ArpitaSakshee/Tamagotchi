@@ -5,7 +5,6 @@
 package tamagui;
 
 import java.awt.Image;
-import java.util.Random;
 
 import javax.swing.ImageIcon;
 
@@ -14,20 +13,45 @@ import javax.swing.ImageIcon;
  * @author Maya
  */
 public class InteractionScreen extends javax.swing.JFrame {
-    ImageIcon iconLogo = new ImageIcon("Images/yippee.png");
+     private final TamaGuiHome home;
+
     /**
      * Creates new form InteractionScreen
+     * @param tamaGuiHome
      */
-    public InteractionScreen() {
+    public InteractionScreen(TamaGuiHome tamaGuiHome) {
         initComponents();
-        String [] avatars = {"croc", "dog", "owl", "rabbit", "radish", "yippee"};
-        Random rand = new Random();
-        String avatar = avatars[rand.nextInt(avatars.length)];
+        this.home = tamaGuiHome;
+        String avatar = home.getAvatar();
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
         ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarPath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
         Interactfriend.setIcon(iconLogo); 
     }
 
+    public void updateAvatar(String avatarImagePath, String avatarName){
+        if (avatarName == null || avatarName.isEmpty()){
+            Error error = new Error();
+            error.SetErrorMsg("Select the avatar for update");
+            error.setVisible(true);
+            return;
+        }
+        ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarImagePath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
+        Interactfriend.setIcon(iconLogo);
+        this.home.updateAvatar(avatarImagePath, avatarName);
+    }
+    
+    public String getAvatarName(){
+        return home.getAvatar();
+    }
+    
+    public int getPoints() {
+        return home.getPoints();
+    }
+    
+    public void addPoints(int points) {
+         home.addPoints(points);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,7 +66,8 @@ public class InteractionScreen extends javax.swing.JFrame {
         toyButton = new javax.swing.JButton();
         medicateButton = new javax.swing.JButton();
         playButton = new javax.swing.JButton();
-        accessorizeButton = new javax.swing.JButton();
+        Avatar = new javax.swing.JButton();
+        accessorizeButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         healthBar = new javax.swing.JProgressBar();
         healthPointsLabel = new javax.swing.JLabel();
@@ -50,7 +75,7 @@ public class InteractionScreen extends javax.swing.JFrame {
         Interactfriend = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("TaskFriend");
+        setTitle("Avatar");
 
         feedButton.setText("Feed");
         feedButton.addActionListener(new java.awt.event.ActionListener() {
@@ -80,10 +105,17 @@ public class InteractionScreen extends javax.swing.JFrame {
             }
         });
 
-        accessorizeButton.setText("Accessorize");
-        accessorizeButton.addActionListener(new java.awt.event.ActionListener() {
+        Avatar.setText("Avatar");
+        Avatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accessorizeButtonActionPerformed(evt);
+                AvatarActionPerformed(evt);
+            }
+        });
+
+        accessorizeButton1.setText("Accessorize");
+        accessorizeButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                accessorizeButton1ActionPerformed(evt);
             }
         });
 
@@ -92,20 +124,22 @@ public class InteractionScreen extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
                         .addComponent(feedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(toyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(medicateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(medicateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(63, 63, 63)
                         .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(accessorizeButton)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(accessorizeButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,8 +152,9 @@ public class InteractionScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(playButton)
-                    .addComponent(accessorizeButton))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(Avatar)
+                    .addComponent(accessorizeButton1))
+                .addContainerGap(16, Short.MAX_VALUE))
         );
 
         healthBar.setForeground(new java.awt.Color(0, 0, 0));
@@ -169,9 +204,10 @@ public class InteractionScreen extends javax.swing.JFrame {
                 .addGap(16, 16, 16)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(Interactfriend, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addComponent(Interactfriend, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -179,7 +215,7 @@ public class InteractionScreen extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(33, 33, 33)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(Interactfriend, javax.swing.GroupLayout.PREFERRED_SIZE, 289, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -205,49 +241,21 @@ public class InteractionScreen extends javax.swing.JFrame {
         new Play().setVisible(true);
     }//GEN-LAST:event_playButtonActionPerformed
 
-    private void accessorizeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessorizeButtonActionPerformed
-        new InventoryAccessory().setVisible(true);
-    }//GEN-LAST:event_accessorizeButtonActionPerformed
+    private void AvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvatarActionPerformed
+        new InventoryAvatar(this).setVisible(true);
+    }//GEN-LAST:event_AvatarActionPerformed
+
+    private void accessorizeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessorizeButton1ActionPerformed
+        new InventoryAccessory(this).setVisible(true);
+    }//GEN-LAST:event_accessorizeButton1ActionPerformed
 
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InteractionScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InteractionScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InteractionScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InteractionScreen.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InteractionScreen().setVisible(true);
-            }
-        });
-    }
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton Avatar;
     private javax.swing.JLabel Interactfriend;
-    private javax.swing.JButton accessorizeButton;
+    private javax.swing.JButton accessorizeButton1;
     private javax.swing.JButton feedButton;
     private javax.swing.JProgressBar healthBar;
     private javax.swing.JLabel healthIndicatorLabel;

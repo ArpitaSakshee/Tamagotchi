@@ -9,22 +9,26 @@ import javax.swing.ImageIcon;
 
 /**
  *
- * @author Maya
+ * @author Arpita Sakshee
  */
-public class InventoryToy extends javax.swing.JFrame {
-
+public final class InventoryAvatar extends javax.swing.JFrame {
+    private InteractionScreen avatarScreen;
     /**
-     * Creates new form ToyInventory
+     * Creates new form InventoryAvatar
+     * @param interactionScreen
      */
-    public InventoryToy() {
+    public InventoryAvatar(InteractionScreen interactionScreen) {
         initComponents();
-        addToys();
+        addAvatars();
+        this.avatarScreen = interactionScreen;
     }
     
-    public void addToys(){
-       toyList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Ball", "Bone", "Duck", "Fish", "Dog" };
+    public void addAvatars(){
+       AvatarList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Crocodile", "Dog", "Owl", "Rabbit", "Radish", "Yippee" };
+            @Override
             public int getSize() { return strings.length; }
+            @Override
             public String getElementAt(int i) { return strings[i]; }
         });
     }
@@ -40,31 +44,29 @@ public class InventoryToy extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        toyList = new javax.swing.JList<>();
-        useItem = new javax.swing.JButton();
-        toyImage = new javax.swing.JLabel();
+        AvatarList = new javax.swing.JList<>();
+        SelectAvatar = new javax.swing.JButton();
+        AvatarImage = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Toys");
 
-        toyList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Toy 1", "Toy 2", "Toy 3", "Toy 4", "Toy 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        toyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        AvatarList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                toyListValueChanged(evt);
+                AvatarListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(toyList);
+        jScrollPane2.setViewportView(AvatarList);
 
-        useItem.setText("Use item");
-        useItem.addActionListener(new java.awt.event.ActionListener() {
+        SelectAvatar.setText("Select Avatar");
+        SelectAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                useItemActionPerformed(evt);
+                SelectAvatarActionPerformed(evt);
             }
         });
+
+        jLabel1.setText("Cost: 1");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -72,26 +74,33 @@ public class InventoryToy extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(useItem))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(28, 28, 28)
+                        .addComponent(SelectAvatar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(53, 53, 53)
+                        .addComponent(jLabel1)))
+                .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
-                        .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(25, 25, 25)
+                        .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(useItem)))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(SelectAvatar))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
@@ -112,69 +121,44 @@ public class InventoryToy extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void useItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useItemActionPerformed
-        // TODO add your handling code here:
-        switch(toyList.getSelectedIndex()) {
-            case 1:
-            case 2:
-            case 3:
-            case 4:
-            case 5:
-        }        
-    }//GEN-LAST:event_useItemActionPerformed
-
-    private void toyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_toyListValueChanged
-        // TODO add your handling code here:
-        String toy = toyList.getSelectedValue();
-        String toyIconPath = "Images/Toy/" + toy + ".png";
-        ImageIcon foodIcon = new ImageIcon(new ImageIcon(toyIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
-        toyImage.setIcon(foodIcon); 
-        toyImage.setVisible(true);
-    }//GEN-LAST:event_toyListValueChanged
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void SelectAvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SelectAvatarActionPerformed
+        String avatarName = AvatarList.getSelectedValue();
+        if (avatarName == null || avatarName.isEmpty()){
+            Error error = new Error();
+            error.SetErrorMsg("Select the avatar for update");
+            error.setVisible(true);
+            return;
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
+        int availablePoints = this.avatarScreen.getPoints();
+        if (availablePoints < 1) {
+            Error error = new Error();
+            error.SetErrorMsg("Insufficient points, complete/add task to earn point");
+            error.setVisible(true);
+            return;
+        } else {
+            this.avatarScreen.addPoints(-1);
+        }
+        String avatarImagePath =  "Images/Avatar/"+ avatarName+ ".png"; 
+        System.out.println("Selecting avatar: "+ avatarImagePath);
+        this.avatarScreen.updateAvatar(avatarImagePath, avatarName);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_SelectAvatarActionPerformed
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InventoryToy().setVisible(true);
-            }
-        });
-    }
+    private void AvatarListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AvatarListValueChanged
+        String avatar = AvatarList.getSelectedValue();
+        String avatarIconPath = "Images/Avatar/" + avatar + ".png";
+        ImageIcon avatarIcon = new ImageIcon(new ImageIcon(avatarIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
+        AvatarImage.setIcon(avatarIcon); 
+        AvatarImage.setVisible(true);
+    }//GEN-LAST:event_AvatarListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel AvatarImage;
+    private javax.swing.JList<String> AvatarList;
+    private javax.swing.JButton SelectAvatar;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel toyImage;
-    private javax.swing.JList<String> toyList;
-    private javax.swing.JButton useItem;
     // End of variables declaration//GEN-END:variables
 }

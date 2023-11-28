@@ -9,7 +9,7 @@ import javax.swing.AbstractListModel;
 
 /**
  *
- * @author arpita
+ * @author Arpita Sakshee
  */
 
 public class ToDoList extends AbstractListModel<String> {
