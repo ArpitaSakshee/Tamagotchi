@@ -12,22 +12,37 @@ import javax.swing.ImageIcon;
  * @author Maya
  */
 public final class InventoryToy extends javax.swing.JFrame {
+     private final InteractionScreen avatarScreen;
+     private final Item[] inventory; 
 
     /**
      * Creates new form ToyInventory
+     * @param interactionScreen
      */
-    public InventoryToy() {
+    public InventoryToy(InteractionScreen interactionScreen) {
         initComponents();
-        addToys();
+        this.avatarScreen = interactionScreen;
+        Item [] items = {
+            new Item("Bone",1,2,0),
+            new Item("Ball",3,5,0),
+            new Item("Mouse",5,8,0),
+            new Item("Fish",7,11,0),
+            new Item("Squeaky",9,15,0),
+        };
+        addToys(items);
+        this.inventory = items;
+        BoostName.setVisible(false);
+        BoostValue.setVisible(false);
+        Cost.setVisible(false);
+        CostValue.setVisible(false);
     }
     
-    public void addToys(){
+    public void addToys(Item[] items){
        toyList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Ball", "Bone", "Duck", "Fish", "Dog" };
             @Override
-            public int getSize() { return strings.length; }
+            public int getSize() { return items.length; }
             @Override
-            public String getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return items[i].getName(); }
         });
     }
 
@@ -45,6 +60,10 @@ public final class InventoryToy extends javax.swing.JFrame {
         toyList = new javax.swing.JList<>();
         useItem = new javax.swing.JButton();
         toyImage = new javax.swing.JLabel();
+        BoostName = new javax.swing.JLabel();
+        BoostValue = new javax.swing.JLabel();
+        Cost = new javax.swing.JLabel();
+        CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Toys");
@@ -63,6 +82,14 @@ public final class InventoryToy extends javax.swing.JFrame {
             }
         });
 
+        BoostName.setText("Entertainment");
+
+        BoostValue.setText("00");
+
+        Cost.setText("Cost:");
+
+        CostValue.setText("00");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -70,14 +97,20 @@ public final class InventoryToy extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(71, 71, 71)
-                        .addComponent(useItem))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 84, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(BoostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(6, 6, 6)
+                        .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(useItem))
+                .addContainerGap(8, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,10 +118,19 @@ public final class InventoryToy extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(30, 30, 30)
+                        .addContainerGap()
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+                            .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(BoostValue))
+                        .addGap(3, 3, 3)
                         .addComponent(toyImage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(useItem)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CostValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(useItem)
+                        .addGap(9, 9, 9)))
                 .addGap(0, 15, Short.MAX_VALUE))
         );
 
@@ -110,7 +152,40 @@ public final class InventoryToy extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void useItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useItemActionPerformed
-             
+        String toy = toyList.getSelectedValue();
+        if (toy == null || toy.isEmpty()){
+            Error error = new Error();
+            error.SetErrorMsg("Select the toy for update");
+            error.setVisible(true);
+            return;
+        }
+        int availablePoints = this.avatarScreen.getPoints();
+        // Find item from inventory
+        Item selectedItem = this.inventory[0];
+        boolean found=false;
+        for (Item item : this.inventory) {
+            if (toy.equals(item.getName())) {
+                selectedItem =  item;
+                found = true;
+            }
+        }
+        if (found == false) {
+            Error error = new Error();
+            error.SetErrorMsg("Could not load inventory");
+            error.setVisible(true);
+            return;
+        }
+        if (availablePoints < selectedItem.getCost()) {
+            Error error = new Error();
+            error.SetErrorMsg("Insufficient points");
+            error.setVisible(true);
+            return;
+        } else {
+            this.avatarScreen.addPoints(-1*selectedItem.getCost());
+        }
+        this.avatarScreen.updateEntertained(selectedItem.getBoost_1());
+        this.setVisible(false);
+        this.dispose();   
     }//GEN-LAST:event_useItemActionPerformed
 
     private void toyListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_toyListValueChanged
@@ -120,45 +195,35 @@ public final class InventoryToy extends javax.swing.JFrame {
         ImageIcon foodIcon = new ImageIcon(new ImageIcon(toyIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
         toyImage.setIcon(foodIcon); 
         toyImage.setVisible(true);
+        // Find item from inventory
+        Item selectedItem = this.inventory[0];
+        boolean found=false;
+        for (Item item : this.inventory) {
+            if (toy.equals(item.getName())) {
+                selectedItem =  item;
+                found = true;
+            }
+        }
+        if (found == false) {
+            Error error = new Error();
+            error.SetErrorMsg("Could not load inventory");
+            error.setVisible(true);
+            return;
+        }
+        CostValue.setText(String.valueOf(selectedItem.getCost()));
+        BoostValue.setText(String.valueOf(selectedItem.getBoost_1()));
+        BoostName.setVisible(true);
+        BoostValue.setVisible(true);
+        Cost.setVisible(true);
+        CostValue.setVisible(true);
     }//GEN-LAST:event_toyListValueChanged
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(InventoryToy.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            new InventoryToy().setVisible(true);
-        });
-    }
-
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BoostName;
+    private javax.swing.JLabel BoostValue;
+    private javax.swing.JLabel Cost;
+    private javax.swing.JLabel CostValue;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel toyImage;

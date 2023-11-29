@@ -11,6 +11,8 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
+
+
 /**
  *
  * @author Christian
@@ -21,6 +23,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private static ToDoList todoList;
     private String avatar;
     private int points;
+    private int minuteTicks;
 
     public TamaGuiHome() {
         //set up UI
@@ -41,7 +44,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         this.addTask(new Task("Task 3","Easy","01/01/2024", "23:09"));
         
         //set up avatar
-        String [] avatars = {"Crocodile", "Dog", "Owl", "Rabbit", "Radish", "Yippee"};
+        String [] avatars = {"Crocodile", "Dog", "Owl", "Rabbit", "Radish"};
         Random rand = new Random();
         this.avatar = avatars[rand.nextInt(avatars.length)];
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
@@ -50,7 +53,8 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         // Lets give 10 starting points
         this.points = 10;
         PointsCounter.setText(String.valueOf(points));
-        
+        int counter = 0;
+
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
         executor.scheduleAtFixedRate(() -> {
             // Your task that needs to run every minute
@@ -58,7 +62,26 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             statsScreen.updateHappiness(-1);
             statsScreen.updateFullness(-1);
             statsScreen.updateEntertained(-1);
-        }, 0, 1, TimeUnit.SECONDS); 
+            /*
+            this.minuteTicks++;
+            if (this.minuteTicks%60 == 0) {
+                System.out.println("Decrement Happines at " + new java.util.Date());
+                statsScreen.updateHappiness(-1);
+
+            } else if (this.minuteTicks%10 == 0) {
+                System.out.println("Decrement Fullness at  " + new java.util.Date());
+                statsScreen.updateFullness(-1);
+            } else if (this.minuteTicks%5 == 0) {
+               System.out.println("Decrement Entertained at " + new java.util.Date());
+               statsScreen.updateEntertained(-1);
+            }
+            
+            //reset timer after 2 hours
+            if (this.minuteTicks > 120){
+                this.minuteTicks = 0;
+            }*/
+              
+        }, 0, 1, TimeUnit.MINUTES); 
     }
     
     public void addTask(Task task) {
@@ -98,6 +121,33 @@ public final class TamaGuiHome extends javax.swing.JFrame {
          TaskCounter.setText(String.valueOf(  this.ToDoList.getModel().getSize()));
     }
     
+    public void updateFullness(int points) {
+         statsScreen.updateFullness(points);
+    }
+    
+    public void updateEntertained(int points) {
+         statsScreen.updateEntertained(points);
+    }
+    
+    public void updateHappiness(int points) {
+         statsScreen.updateHappiness(points);
+    }
+    
+    public int getFullness() {
+        return statsScreen.getFullness();
+    }
+    
+    public int getEntertained() {
+        return statsScreen.getEntertained();
+    }
+    
+    public int getHappiness() {
+        return statsScreen.getHappiness();
+    }
+    
+    public void setHealth(int health) {
+        HealthBar.setValue(health);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -358,13 +408,12 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
         System.out.println("Removing Completed Task: "+ task);
         this.removeTask(SelectedIndex);
-        // Don't Updatepoints
         String []tasks= task.split("-");
         String difficulty = tasks[1].trim();
         switch (difficulty) {
             case "Easy" -> this.addPoints(3);
             case "Medium" -> this.addPoints(5);
-            default -> this.addPoints(10);
+            default -> this.addPoints(7);
         }
     }//GEN-LAST:event_CompleteTaskButtonActionPerformed
 

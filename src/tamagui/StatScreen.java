@@ -168,6 +168,17 @@ public class StatScreen extends javax.swing.JFrame {
         HappinessBar.setValue(this.happiness);
     }
   
+    public int getFullness() {
+        return this.fullness;
+    }
+    
+    public int getEntertained() {
+        return this.entertained;
+    }
+    
+    public int getHappiness() {
+        return this.happiness;
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel Entertained;

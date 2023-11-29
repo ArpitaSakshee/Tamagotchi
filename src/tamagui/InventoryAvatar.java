@@ -12,24 +12,34 @@ import javax.swing.ImageIcon;
  * @author Arpita Sakshee
  */
 public final class InventoryAvatar extends javax.swing.JFrame {
-    private InteractionScreen avatarScreen;
+    private final InteractionScreen avatarScreen;
+    private final Item[] inventory; 
     /**
      * Creates new form InventoryAvatar
      * @param interactionScreen
      */
     public InventoryAvatar(InteractionScreen interactionScreen) {
         initComponents();
-        addAvatars();
         this.avatarScreen = interactionScreen;
+          Item [] items = {
+            new Item("Crocodile",30,0,0),
+            new Item("Dog",30,0,0),
+            new Item("Owl",30,0,0),
+            new Item("Rabbit",30,0,0),
+            new Item("Radish",30,0,0),
+        };
+        addAvatars(items);
+        this.inventory = items;
+        Cost.setVisible(false);
+        CostValue.setVisible(false);
     }
     
-    public void addAvatars(){
+    public void addAvatars(Item[] items){
        AvatarList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Crocodile", "Dog", "Owl", "Rabbit", "Radish", "Yippee" };
             @Override
-            public int getSize() { return strings.length; }
+            public int getSize() { return items.length; }
             @Override
-            public String getElementAt(int i) { return strings[i]; }
+            public String getElementAt(int i) { return items[i].getName(); }
         });
     }
 
@@ -47,7 +57,8 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         AvatarList = new javax.swing.JList<>();
         SelectAvatar = new javax.swing.JButton();
         AvatarImage = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
+        Cost = new javax.swing.JLabel();
+        CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Toys");
@@ -66,7 +77,9 @@ public final class InventoryAvatar extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Cost: 1");
+        Cost.setText("Cost:");
+
+        CostValue.setText("00");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -77,14 +90,17 @@ public final class InventoryAvatar extends javax.swing.JFrame {
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(SelectAvatar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(53, 53, 53)
-                        .addComponent(jLabel1)))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -94,9 +110,11 @@ public final class InventoryAvatar extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CostValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(12, 12, 12)
                         .addComponent(SelectAvatar))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addContainerGap()
@@ -129,14 +147,29 @@ public final class InventoryAvatar extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         }
-        int availablePoints = this.avatarScreen.getPoints();
-        if (availablePoints < 1) {
+        // Find item from inventory
+        Item selectedItem = this.inventory[0];
+        boolean found=false;
+        for (Item item : this.inventory) {
+            if (avatarName.equals(item.getName())) {
+                selectedItem =  item;
+                found = true;
+            }
+        }
+        if (found == false) {
             Error error = new Error();
-            error.SetErrorMsg("Insufficient points, complete/add task to earn point");
+            error.SetErrorMsg("Could not load inventory");
+            error.setVisible(true);
+            return;
+        }
+        int availablePoints = this.avatarScreen.getPoints();
+        if (availablePoints < selectedItem.getCost()) {
+            Error error = new Error();
+            error.SetErrorMsg("Insufficient points");
             error.setVisible(true);
             return;
         } else {
-            this.avatarScreen.addPoints(-1);
+            this.avatarScreen.addPoints(-1*selectedItem.getCost());
         }
         String avatarImagePath =  "Images/Avatar/"+ avatarName+ ".png"; 
         System.out.println("Selecting avatar: "+ avatarImagePath);
@@ -151,13 +184,32 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         ImageIcon avatarIcon = new ImageIcon(new ImageIcon(avatarIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
         AvatarImage.setIcon(avatarIcon); 
         AvatarImage.setVisible(true);
+        // Find item from inventory
+        Item selectedItem = this.inventory[0];
+        boolean found=false;
+        for (Item item : this.inventory) {
+            if (avatar.equals(item.getName())) {
+                selectedItem =  item;
+                found = true;
+            }
+        }
+        if (found == false) {
+            Error error = new Error();
+            error.SetErrorMsg("Could not load inventory");
+            error.setVisible(true);
+            return;
+        }
+        CostValue.setText(String.valueOf(selectedItem.getCost()));
+        Cost.setVisible(true);
+        CostValue.setVisible(true);
     }//GEN-LAST:event_AvatarListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel AvatarImage;
     private javax.swing.JList<String> AvatarList;
+    private javax.swing.JLabel Cost;
+    private javax.swing.JLabel CostValue;
     private javax.swing.JButton SelectAvatar;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables

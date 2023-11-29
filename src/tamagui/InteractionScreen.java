@@ -52,6 +52,27 @@ public class InteractionScreen extends javax.swing.JFrame {
          home.addPoints(points);
     }
     
+    public void updateFullness(int points) {
+         home.updateFullness(points);
+         updateHealth();
+    }
+    
+    public void updateEntertained(int points) {
+         home.updateEntertained(points);
+         updateHealth();
+    }
+    
+    public void updateHappiness(int points) {
+         home.updateHappiness(points);
+         updateHealth();
+    }
+    
+    public void updateHealth(){
+        int health= (3*home.getFullness()+2*home.getEntertained() + home.getHappiness())/6;
+        healthBar.setValue(health);
+        home.setHealth(health);
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -242,19 +263,19 @@ public class InteractionScreen extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void feedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feedButtonActionPerformed
-        new InventoryFood().setVisible(true);
+        new InventoryFood(this).setVisible(true);
     }//GEN-LAST:event_feedButtonActionPerformed
 
     private void toyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toyButtonActionPerformed
-        new InventoryToy().setVisible(true);
+        new InventoryToy(this).setVisible(true);
     }//GEN-LAST:event_toyButtonActionPerformed
 
     private void medicateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicateButtonActionPerformed
-        new InventoryMedicine().setVisible(true);
+        new InventoryHeal(this).setVisible(true);
     }//GEN-LAST:event_medicateButtonActionPerformed
 
     private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-        new Play().setVisible(true);
+        new Play(this).setVisible(true);
     }//GEN-LAST:event_playButtonActionPerformed
 
     private void AvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvatarActionPerformed
@@ -266,8 +287,6 @@ public class InteractionScreen extends javax.swing.JFrame {
     }//GEN-LAST:event_accessorizeButton1ActionPerformed
 
     
-    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Avatar;
     private javax.swing.JLabel Interactfriend;
