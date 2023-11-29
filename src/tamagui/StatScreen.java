@@ -9,7 +9,9 @@ package tamagui;
  * @author Christian
  */
 public class StatScreen extends javax.swing.JFrame {
-
+    private int fullness;
+    private int entertained;
+    private int happiness;
     /**
      * Creates new form StatScreen
      */
@@ -27,16 +29,16 @@ public class StatScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        BoredomBar = new javax.swing.JProgressBar();
+        EntertainedBar = new javax.swing.JProgressBar();
         FullnessBar = new javax.swing.JProgressBar();
         HappinessBar = new javax.swing.JProgressBar();
         FullnessLabel = new javax.swing.JLabel();
-        BoredomLabel = new javax.swing.JLabel();
+        Entertained = new javax.swing.JLabel();
         HappinessLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        BoredomBar.setStringPainted(true);
+        EntertainedBar.setStringPainted(true);
 
         FullnessBar.setStringPainted(true);
 
@@ -45,8 +47,8 @@ public class StatScreen extends javax.swing.JFrame {
         FullnessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         FullnessLabel.setText("Fullness");
 
-        BoredomLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        BoredomLabel.setText("Entertained");
+        Entertained.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        Entertained.setText("Entertained");
 
         HappinessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         HappinessLabel.setText("Happiness");
@@ -57,14 +59,14 @@ public class StatScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(BoredomBar, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(EntertainedBar, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
                     .addComponent(HappinessLabel)
                     .addComponent(HappinessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(FullnessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(FullnessLabel)
-                            .addComponent(BoredomLabel))
+                            .addComponent(Entertained))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -76,9 +78,9 @@ public class StatScreen extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FullnessBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(23, 23, 23)
-                .addComponent(BoredomLabel)
+                .addComponent(Entertained)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(BoredomBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(EntertainedBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(HappinessLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -121,67 +123,55 @@ public class StatScreen extends javax.swing.JFrame {
         
     private void initializePetStats() {
         // Set initial values for the progress bars
-        BoredomBar.setValue(100);
-        FullnessBar.setValue(100);
-        HappinessBar.setValue(100);
+       this.updateFullness(100);
+       this.updateEntertained(100);
+       this.updateHappiness(100);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    private void feedPet() {
-        // Update the fullness bar when the pet is fed
-        int currentFullness = FullnessBar.getValue();
-        int newFullness = Math.min(100, currentFullness + 10);  //Can change the +10 to a method that deals with different foods.
-        FullnessBar.setValue(newFullness);
+    public void updateFullness(int fullness) {
+        //OverFlow
+        if (this.fullness + fullness > 100){
+            this.fullness = 100;
+        }else if (this.fullness + fullness <= 0) {
+            // underflow
+            this.fullness = 0;
+        }else {
+             this.fullness += fullness;
+        }
+        FullnessBar.setValue(this.fullness);
     }
     
-    private void playwithPet() {
-        // Update the fullness bar when the pet is fed
-        int currentBoredom = BoredomBar.getValue();
-        int newBoredom = Math.min(100, currentBoredom + 10);  //Can change the +10 to a method that deals with different toys.
-        FullnessBar.setValue(newBoredom);
+    public void updateEntertained(int entertained) {
+        //OverFlow
+        if (this.entertained + entertained > 100){
+            this.entertained = 100;
+        }else if (this.entertained + entertained <= 0) {
+            // underflow
+            this.entertained = 0;
+        }else {
+             this.entertained += entertained;
+        }
+        EntertainedBar.setValue(this.entertained);
     }
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    //Set Methods
-    public void setBoredom(int value) {
-        BoredomBar.setValue(value);
-    }
-
-    public void setFullness(int value) {
-        FullnessBar.setValue(value);
-    }
-
-    public void setHappiness(int value) {
-        HappinessBar.setValue(value);
-    }
  
-    
-    
+    public void updateHappiness(int happiness) {
+        //OverFlow
+        if (this.happiness + happiness > 100){
+            this.happiness = 100;
+        }else if (this.happiness + happiness <= 0) {
+            // underflow
+            this.happiness = 0;
+        }else {
+             this.happiness += happiness;
+        }
+        HappinessBar.setValue(this.happiness);
+    }
+  
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JProgressBar BoredomBar;
-    private javax.swing.JLabel BoredomLabel;
+    private javax.swing.JLabel Entertained;
+    private javax.swing.JProgressBar EntertainedBar;
     private javax.swing.JProgressBar FullnessBar;
     private javax.swing.JLabel FullnessLabel;
     private javax.swing.JProgressBar HappinessBar;

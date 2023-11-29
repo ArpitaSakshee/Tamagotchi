@@ -7,6 +7,9 @@ package tamagui;
 import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.Random;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 /**
  *
@@ -18,7 +21,6 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private static ToDoList todoList;
     private String avatar;
     private int points;
-    private int taskCounter;
 
     public TamaGuiHome() {
         //set up UI
@@ -27,10 +29,11 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         StatScreenPanel.setLayout(new BorderLayout()); // Set layout manager for StatScreenPanel
         StatScreenPanel.add(statsScreen.getContentPane(), BorderLayout.CENTER); // Add StatScreen to StatScreenPanel
         todoList = new ToDoList();
-        // Todo check with the team
         HealthBar.setValue(100);
+        
         EditTaskButton.setEnabled(false);
         CompleteTaskButton.setEnabled(false);
+        RemoveTaskButton.setEnabled(false);
         
         
         this.addTask(new Task("Task 1","Hard","11/02/2023", "01:11")); 
@@ -48,18 +51,23 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         this.points = 10;
         PointsCounter.setText(String.valueOf(points));
         
-        
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
+        executor.scheduleAtFixedRate(() -> {
+            // Your task that needs to run every minute
+            System.out.println("Application is running at " + new java.util.Date());
+            statsScreen.updateHappiness(-1);
+            statsScreen.updateFullness(-1);
+            statsScreen.updateEntertained(-1);
+        }, 0, 1, TimeUnit.SECONDS); 
     }
     
     public void addTask(Task task) {
         todoList.add(task);
-        this.taskCounter++;
         this.ToDoList.setModel(todoList);
         updateTaskCounter();
     }
     
     public void removeTask(int index) {
-        this.taskCounter--;
         todoList.remove(index);
         updateTaskCounter();
     }
@@ -87,7 +95,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     }
     
     public void updateTaskCounter() {
-         TaskCounter.setText(String.valueOf(this.taskCounter));
+         TaskCounter.setText(String.valueOf(  this.ToDoList.getModel().getSize()));
     }
     
     /**
@@ -348,25 +356,21 @@ public final class TamaGuiHome extends javax.swing.JFrame {
 
         int SelectedIndex = this.ToDoList.getSelectedIndex();
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
-        System.out.println("Removing Task: "+ task);
+        System.out.println("Removing Completed Task: "+ task);
         this.removeTask(SelectedIndex);
+        // Don't Updatepoints
+        String []tasks= task.split("-");
+        String difficulty = tasks[1].trim();
+        switch (difficulty) {
+            case "Easy" -> this.addPoints(3);
+            case "Medium" -> this.addPoints(5);
+            default -> this.addPoints(10);
+        }
     }//GEN-LAST:event_CompleteTaskButtonActionPerformed
 
     private void EditTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditTaskButtonActionPerformed
         // TODO add your handling code here:
         int SelectedIndex = this.ToDoList.getSelectedIndex();
-        if (SelectedIndex == -1) {
-            Error error = new Error();
-            error.SetErrorMsg("Select the Task for editing");
-            error.setVisible(true);
-            return;
-        }
-        if (this.ToDoList.getModel().getSize() == 0 ){
-            Error error = new Error();
-            error.SetErrorMsg("No Task remaining for editing");
-            error.setVisible(true);
-            return;
-        }
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
         System.out.println("Editing Task: "+ task);
         String []tasks= task.split("-");
@@ -405,25 +409,15 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
         System.out.println("Removing Task: "+ task);
         this.removeTask(SelectedIndex);
-        
-        // Don't Updatepoints
-        String []tasks= task.split("-");
-        String difficulty = tasks[1].trim();
-        switch (difficulty) {
-            case "Easy" -> this.addPoints(3);
-            case "Medium" -> this.addPoints(5);
-            default -> this.addPoints(10);
-        }
     }//GEN-LAST:event_RemoveTaskButtonActionPerformed
 
     public void addPoints(int points) {
-
         //OverFlow
-        if (this.points + points > 100){
-            this.points=100;
+        if (this.points + points > 1000){
+            this.points = 1000;
         }else if (this.points + points <= 0) {
             // underflow
-            this.points =0;
+            this.points = 0;
         }else {
              this.points += points;
         }
@@ -457,7 +451,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new TamaGuiHome().setVisible(true);
         });
-        
+   
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
