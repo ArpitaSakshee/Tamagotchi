@@ -33,8 +33,6 @@ public class StatScreen extends javax.swing.JFrame {
         FullnessLabel = new javax.swing.JLabel();
         BoredomLabel = new javax.swing.JLabel();
         HappinessLabel = new javax.swing.JLabel();
-        BuyFoodButton = new javax.swing.JButton();
-        BuyToyButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -53,55 +51,32 @@ public class StatScreen extends javax.swing.JFrame {
         HappinessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         HappinessLabel.setText("Happiness");
 
-        BuyFoodButton.setText("Buy Food");
-        BuyFoodButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BuyFoodButtonMouseClicked(evt);
-            }
-        });
-
-        BuyToyButton.setText("Buy Toy");
-        BuyToyButton.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                BuyToyButtonMouseClicked(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(FullnessLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BuyFoodButton))
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(BoredomLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(BuyToyButton))
-                    .addComponent(BoredomBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(HappinessLabel)
-                        .addGap(175, 175, 175))
+                    .addComponent(BoredomBar, javax.swing.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                    .addComponent(HappinessLabel)
                     .addComponent(HappinessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(FullnessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(FullnessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(FullnessLabel)
+                            .addComponent(BoredomLabel))
+                        .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BuyFoodButton)
-                    .addComponent(FullnessLabel))
+                .addGap(19, 19, 19)
+                .addComponent(FullnessLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(FullnessBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(BuyToyButton)
-                    .addComponent(BoredomLabel))
+                .addGap(23, 23, 23)
+                .addComponent(BoredomLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(BoredomBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -113,16 +88,6 @@ public class StatScreen extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BuyFoodButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuyFoodButtonMouseClicked
-        // TODO add your handling code here:
-        new StoreFood().setVisible(true);
-    }//GEN-LAST:event_BuyFoodButtonMouseClicked
-
-    private void BuyToyButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BuyToyButtonMouseClicked
-        // TODO add your handling code here:
-        new StoreToy().setVisible(true);
-    }//GEN-LAST:event_BuyToyButtonMouseClicked
 
     /**
      * @param args the command line arguments
@@ -217,8 +182,6 @@ public class StatScreen extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JProgressBar BoredomBar;
     private javax.swing.JLabel BoredomLabel;
-    private javax.swing.JButton BuyFoodButton;
-    private javax.swing.JButton BuyToyButton;
     private javax.swing.JProgressBar FullnessBar;
     private javax.swing.JLabel FullnessLabel;
     private javax.swing.JProgressBar HappinessBar;

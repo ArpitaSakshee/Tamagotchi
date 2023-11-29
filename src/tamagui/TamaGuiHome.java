@@ -18,6 +18,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private static ToDoList todoList;
     private String avatar;
     private int points;
+    private int taskCounter;
 
     public TamaGuiHome() {
         //set up UI
@@ -29,11 +30,12 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         // Todo check with the team
         HealthBar.setValue(100);
         EditTaskButton.setEnabled(false);
-        RemoveTaskButton.setEnabled(false);
+        CompleteTaskButton.setEnabled(false);
         
-//        this.addTask(new Task("Task 1","Hard","1/1/24", "01:01")); 
-//        this.addTask(new Task("Task 2","Medium","2/2/24", "02:02")); 
-//        this.addTask(new Task("Task 3","Easy","3/3/24", "03:03"));
+        
+        this.addTask(new Task("Task 1","Hard","11/02/2023", "01:11")); 
+        this.addTask(new Task("Task 2","Medium","11/12/2023", "12:02")); 
+        this.addTask(new Task("Task 3","Easy","01/01/2024", "23:09"));
         
         //set up avatar
         String [] avatars = {"Crocodile", "Dog", "Owl", "Rabbit", "Radish", "Yippee"};
@@ -51,11 +53,15 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     
     public void addTask(Task task) {
         todoList.add(task);
+        this.taskCounter++;
         this.ToDoList.setModel(todoList);
+        updateTaskCounter();
     }
     
     public void removeTask(int index) {
+        this.taskCounter--;
         todoList.remove(index);
+        updateTaskCounter();
     }
     
     public String getAvatar() {
@@ -77,16 +83,11 @@ public final class TamaGuiHome extends javax.swing.JFrame {
                 new ImageIcon(avatarImagePath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
         Avatar.setIcon(iconLogo);
         AvatarName.setText(avatarName);
+        this.avatar = avatarName;
     }
     
     public void updateTaskCounter() {
-        int tasks = this.ToDoList.getModel().getSize();
-        if (tasks == -1) {
-            TaskCounter.setText(String.valueOf("0"));
-        }
-        else {
-            TaskCounter.setText(String.valueOf(tasks));
-        }
+         TaskCounter.setText(String.valueOf(this.taskCounter));
     }
     
     /**
@@ -110,9 +111,9 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         HealthBar = new javax.swing.JProgressBar();
         PointsCounter = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         EditTaskButton = new javax.swing.JButton();
         AddTaskButton = new javax.swing.JButton();
+        CompleteTaskButton = new javax.swing.JButton();
         RemoveTaskButton = new javax.swing.JButton();
         TaskCounter = new javax.swing.JLabel();
 
@@ -134,7 +135,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         );
         StatScreenPanelLayout.setVerticalGroup(
             StatScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 228, Short.MAX_VALUE)
+            .addGap(0, 213, Short.MAX_VALUE)
         );
 
         ToDoList.setModel(new javax.swing.AbstractListModel<String>() {
@@ -176,8 +177,6 @@ public final class TamaGuiHome extends javax.swing.JFrame {
 
         jLabel1.setText("Health Points");
 
-        jButton1.setText("Buy Heals");
-
         javax.swing.GroupLayout InteractionPanelLayout = new javax.swing.GroupLayout(InteractionPanel);
         InteractionPanel.setLayout(InteractionPanelLayout);
         InteractionPanelLayout.setHorizontalGroup(
@@ -188,19 +187,20 @@ public final class TamaGuiHome extends javax.swing.JFrame {
                     .addComponent(HealthBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(InteractionPanelLayout.createSequentialGroup()
                         .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(AvatarName)
                             .addGroup(InteractionPanelLayout.createSequentialGroup()
-                                .addGap(12, 12, 12)
-                                .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(PointsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(PointsCounter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(0, 4, Short.MAX_VALUE))
-                    .addGroup(InteractionPanelLayout.createSequentialGroup()
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1)))
+                                .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(AvatarName)
+                                    .addGroup(InteractionPanelLayout.createSequentialGroup()
+                                        .addGap(12, 12, 12)
+                                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(PointsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(PointsCounter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                            .addGroup(InteractionPanelLayout.createSequentialGroup()
+                                .addGap(49, 49, 49)
+                                .addComponent(jLabel1)))
+                        .addGap(0, 4, Short.MAX_VALUE)))
                 .addContainerGap())
         );
         InteractionPanelLayout.setVerticalGroup(
@@ -216,10 +216,8 @@ public final class TamaGuiHome extends javax.swing.JFrame {
                         .addComponent(PointsCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(PointsLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jButton1)
-                    .addComponent(jLabel1))
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(HealthBar, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
                 .addContainerGap())
@@ -239,6 +237,13 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             }
         });
 
+        CompleteTaskButton.setText("Complete Task");
+        CompleteTaskButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CompleteTaskButtonActionPerformed(evt);
+            }
+        });
+
         RemoveTaskButton.setText("Remove Task");
         RemoveTaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -250,19 +255,22 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(RemoveTaskButton)
-                            .addGap(54, 54, 54))
-                        .addGroup(jPanel1Layout.createSequentialGroup()
-                            .addComponent(EditTaskButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                            .addComponent(AddTaskButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addComponent(InteractionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(14, 14, 14)
+                        .addComponent(InteractionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(13, 13, 13)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(AddTaskButton)
+                            .addComponent(EditTaskButton))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(CompleteTaskButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(5, 5, 5))
+                            .addComponent(RemoveTaskButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
                 .addGap(14, 14, 14))
         );
         jPanel1Layout.setVerticalGroup(
@@ -272,11 +280,13 @@ public final class TamaGuiHome extends javax.swing.JFrame {
                 .addComponent(InteractionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(EditTaskButton)
-                    .addComponent(AddTaskButton))
+                    .addComponent(AddTaskButton)
+                    .addComponent(RemoveTaskButton))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(RemoveTaskButton)
-                .addContainerGap(14, Short.MAX_VALUE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditTaskButton)
+                    .addComponent(CompleteTaskButton))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         TaskCounter.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
@@ -334,44 +344,13 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         AddTask.setVisible(true);
     }//GEN-LAST:event_AddTaskButtonActionPerformed
 
-    private void RemoveTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveTaskButtonActionPerformed
+    private void CompleteTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CompleteTaskButtonActionPerformed
 
         int SelectedIndex = this.ToDoList.getSelectedIndex();
-        //Object task = this.ToDoList.getSelectedValues();
-        
-        //unnecessary if buttons are disabled
-//        if (SelectedIndex == -1) {
-//            Error error = new Error();
-//            error.SetErrorMsg("Select the Task for removal");
-//            error.setVisible(true);
-//            return;
-//        }
-//        if (this.ToDoList.getModel().getSize() == 0 ){
-//            Error error = new Error();
-//            error.SetErrorMsg("No Task remaining for removal");
-//            error.setVisible(true);
-//            return;
-//        }
-        
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
         System.out.println("Removing Task: "+ task);
         this.removeTask(SelectedIndex);
-        
-        // Update points based on difficulty
-        String []tasks= task.split("-");
-        String difficulty = tasks[1].trim();
-        switch (difficulty) {
-            case "Easy": 
-                this.addPoints(3);
-                break;
-            case "Medium":
-                this.addPoints(5);
-                break;
-            default: 
-                this.addPoints(10);
-        }
-        
-    }//GEN-LAST:event_RemoveTaskButtonActionPerformed
+    }//GEN-LAST:event_CompleteTaskButtonActionPerformed
 
     private void EditTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EditTaskButtonActionPerformed
         // TODO add your handling code here:
@@ -395,7 +374,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         
         addTask AddTask = new addTask(this, tasks[0].trim(),tasks[1].trim(), tasks[2].trim(),tasks[3].trim());
         AddTask.setVisible(true);
-        // On edit don't 
+        
     }//GEN-LAST:event_EditTaskButtonActionPerformed
 
     private void ToDoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ToDoListValueChanged
@@ -405,20 +384,37 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             if (ToDoList.getSelectedIndex() == -1) {
                 //No selection, disable buttons
                 EditTaskButton.setEnabled(false);
+                CompleteTaskButton.setEnabled(false);
                 RemoveTaskButton.setEnabled(false);
 
             } else {
                 //Selection, enable buttons
                 EditTaskButton.setEnabled(true);
+                CompleteTaskButton.setEnabled(true);
                 RemoveTaskButton.setEnabled(true);
             }
         }
     }//GEN-LAST:event_ToDoListValueChanged
 
     private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
-        // TODO add your handling code here:
         ToDoList.clearSelection();
     }//GEN-LAST:event_formMouseClicked
+
+    private void RemoveTaskButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RemoveTaskButtonActionPerformed
+        int SelectedIndex = this.ToDoList.getSelectedIndex();
+        String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
+        System.out.println("Removing Task: "+ task);
+        this.removeTask(SelectedIndex);
+        
+        // Don't Updatepoints
+        String []tasks= task.split("-");
+        String difficulty = tasks[1].trim();
+        switch (difficulty) {
+            case "Easy" -> this.addPoints(3);
+            case "Medium" -> this.addPoints(5);
+            default -> this.addPoints(10);
+        }
+    }//GEN-LAST:event_RemoveTaskButtonActionPerformed
 
     public void addPoints(int points) {
 
@@ -431,7 +427,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         }else {
              this.points += points;
         }
-//        PointsCounter.setText(String.valueOf(points));
+        PointsCounter.setText(String.valueOf(this.points));
     }
 
     public static void main(String args[]) {
@@ -468,6 +464,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private javax.swing.JButton AddTaskButton;
     private javax.swing.JLabel Avatar;
     private javax.swing.JLabel AvatarName;
+    private javax.swing.JButton CompleteTaskButton;
     private javax.swing.JButton EditTaskButton;
     private javax.swing.JProgressBar HealthBar;
     private javax.swing.JPanel InteractionPanel;
@@ -479,7 +476,6 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private javax.swing.JList<String> ToDoList;
     private javax.swing.JLabel ToDoListLabel;
     private javax.swing.JScrollPane ToDoListPanel;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
