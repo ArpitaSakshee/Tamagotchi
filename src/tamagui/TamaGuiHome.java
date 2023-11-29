@@ -20,23 +20,33 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private int points;
 
     public TamaGuiHome() {
+        //set up UI
         initComponents();    
         statsScreen = new StatScreen(); // Initialize the instance
         StatScreenPanel.setLayout(new BorderLayout()); // Set layout manager for StatScreenPanel
         StatScreenPanel.add(statsScreen.getContentPane(), BorderLayout.CENTER); // Add StatScreen to StatScreenPanel
         todoList = new ToDoList();
         // Todo check with the team
-        this.addTask(new Task("Task 1","Hard","1/1/24", "01:01")); 
-        this.addTask(new Task("Task 2","Medium","2/2/24", "02:02")); 
-        this.addTask(new Task("Task 3","Easy","3/3/24", "03:03"));
+        HealthBar.setValue(100);
+        EditTaskButton.setEnabled(false);
+        RemoveTaskButton.setEnabled(false);
+        
+//        this.addTask(new Task("Task 1","Hard","1/1/24", "01:01")); 
+//        this.addTask(new Task("Task 2","Medium","2/2/24", "02:02")); 
+//        this.addTask(new Task("Task 3","Easy","3/3/24", "03:03"));
+        
+        //set up avatar
         String [] avatars = {"Crocodile", "Dog", "Owl", "Rabbit", "Radish", "Yippee"};
         Random rand = new Random();
         this.avatar = avatars[rand.nextInt(avatars.length)];
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
         this.updateAvatar(avatarPath, this.avatar);
+        
         // Lets give 10 starting points
         this.points = 10;
-        PointsBar.setValue(this.points);
+        PointsCounter.setText(String.valueOf(points));
+        
+        
     }
     
     public void addTask(Task task) {
@@ -52,6 +62,10 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         return this.avatar;
     }
     
+    public int getPoints() {
+        return this.points;
+    }
+    
     public void updateAvatar(String avatarImagePath, String avatarName){
         if (avatarName == null || avatarName.isEmpty()){
             Error error = new Error();
@@ -59,9 +73,20 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         }
-        ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarImagePath).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
+        ImageIcon iconLogo = new ImageIcon(
+                new ImageIcon(avatarImagePath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
         Avatar.setIcon(iconLogo);
         AvatarName.setText(avatarName);
+    }
+    
+    public void updateTaskCounter() {
+        int tasks = this.ToDoList.getModel().getSize();
+        if (tasks == -1) {
+            TaskCounter.setText(String.valueOf("0"));
+        }
+        else {
+            TaskCounter.setText(String.valueOf(tasks));
+        }
     }
     
     /**
@@ -75,74 +100,130 @@ public final class TamaGuiHome extends javax.swing.JFrame {
 
         ToDoListLabel = new javax.swing.JLabel();
         StatScreenPanel = new javax.swing.JPanel();
+        ToDoListPanel = new javax.swing.JScrollPane();
+        ToDoList = new javax.swing.JList<>();
+        jPanel1 = new javax.swing.JPanel();
         InteractionPanel = new javax.swing.JPanel();
         Avatar = new javax.swing.JLabel();
         AvatarName = new javax.swing.JLabel();
-        ToDoListPanel = new javax.swing.JScrollPane();
-        ToDoList = new javax.swing.JList<>();
-        PointsBar = new javax.swing.JProgressBar();
         PointsLabel = new javax.swing.JLabel();
+        HealthBar = new javax.swing.JProgressBar();
+        PointsCounter = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         EditTaskButton = new javax.swing.JButton();
         AddTaskButton = new javax.swing.JButton();
         RemoveTaskButton = new javax.swing.JButton();
+        TaskCounter = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                formMouseClicked(evt);
+            }
+        });
 
+        ToDoListLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         ToDoListLabel.setText("To-Do List");
 
         javax.swing.GroupLayout StatScreenPanelLayout = new javax.swing.GroupLayout(StatScreenPanel);
         StatScreenPanel.setLayout(StatScreenPanelLayout);
         StatScreenPanelLayout.setHorizontalGroup(
             StatScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 216, Short.MAX_VALUE)
+            .addGap(0, 0, Short.MAX_VALUE)
         );
         StatScreenPanelLayout.setVerticalGroup(
             StatScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 193, Short.MAX_VALUE)
+            .addGap(0, 228, Short.MAX_VALUE)
         );
 
+        ToDoList.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = {};
+            public int getSize() { return strings.length; }
+            public String getElementAt(int i) { return strings[i]; }
+        });
+        ToDoList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                ToDoListValueChanged(evt);
+            }
+        });
+        ToDoListPanel.setViewportView(ToDoList);
+
+        jPanel1.setBackground(new java.awt.Color(204, 204, 204));
+        jPanel1.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+
+        InteractionPanel.setBackground(new java.awt.Color(255, 255, 255));
+        InteractionPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         InteractionPanel.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 InteractionPanelMouseClicked(evt);
             }
         });
 
+        Avatar.setBackground(new java.awt.Color(255, 255, 255));
+        Avatar.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
+
         AvatarName.setText("Avatar Name");
+
+        PointsLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        PointsLabel.setText("Points");
+
+        HealthBar.setStringPainted(true);
+
+        PointsCounter.setFont(new java.awt.Font("Helvetica Neue", 0, 32)); // NOI18N
+        PointsCounter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        PointsCounter.setText("0");
+
+        jLabel1.setText("Health Points");
+
+        jButton1.setText("Buy Heals");
 
         javax.swing.GroupLayout InteractionPanelLayout = new javax.swing.GroupLayout(InteractionPanel);
         InteractionPanel.setLayout(InteractionPanelLayout);
         InteractionPanelLayout.setHorizontalGroup(
             InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InteractionPanelLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(HealthBar, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(InteractionPanelLayout.createSequentialGroup()
-                        .addGap(77, 77, 77)
-                        .addComponent(AvatarName))
+                        .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(AvatarName)
+                            .addGroup(InteractionPanelLayout.createSequentialGroup()
+                                .addGap(12, 12, 12)
+                                .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(PointsLabel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(PointsCounter, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(0, 4, Short.MAX_VALUE))
                     .addGroup(InteractionPanelLayout.createSequentialGroup()
-                        .addGap(48, 48, 48)
-                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(jLabel1)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jButton1)))
+                .addContainerGap())
         );
         InteractionPanelLayout.setVerticalGroup(
             InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(InteractionPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(AvatarName)
+                .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(InteractionPanelLayout.createSequentialGroup()
+                        .addComponent(AvatarName)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(InteractionPanelLayout.createSequentialGroup()
+                        .addComponent(PointsCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(PointsLabel)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 131, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(39, Short.MAX_VALUE))
+                .addGroup(InteractionPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jButton1)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(HealthBar, javax.swing.GroupLayout.DEFAULT_SIZE, 23, Short.MAX_VALUE)
+                .addContainerGap())
         );
-
-        ToDoList.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
-        ToDoListPanel.setViewportView(ToDoList);
-
-        PointsBar.setStringPainted(true);
-
-        PointsLabel.setText("Points");
 
         EditTaskButton.setText("Edit Task");
         EditTaskButton.addActionListener(new java.awt.event.ActionListener() {
@@ -165,72 +246,77 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(RemoveTaskButton)
+                            .addGap(54, 54, 54))
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                            .addComponent(EditTaskButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                            .addComponent(AddTaskButton, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(InteractionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(14, 14, 14))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addComponent(InteractionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(EditTaskButton)
+                    .addComponent(AddTaskButton))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(RemoveTaskButton)
+                .addContainerGap(14, Short.MAX_VALUE))
+        );
+
+        TaskCounter.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
+        TaskCounter.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        TaskCounter.setText("0");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(20, 20, 20)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ToDoListPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 231, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(24, 24, 24)
-                        .addComponent(ToDoListPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 231, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(93, 93, 93)
-                        .addComponent(ToDoListLabel)))
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(EditTaskButton, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(AddTaskButton, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(InteractionPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
-                        .addComponent(StatScreenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(ToDoListLabel)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(PointsLabel)
-                        .addGap(144, 144, 144))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(72, 72, 72)
-                                .addComponent(RemoveTaskButton))
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(18, 18, 18)
-                                .addComponent(PointsBar, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addContainerGap(18, Short.MAX_VALUE))))
+                        .addComponent(TaskCounter, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(22, 22, 22)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(StatScreenPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(18, 18, 18))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(17, 17, 17)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(23, 23, 23)
-                        .addComponent(ToDoListLabel))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(PointsLabel)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(PointsBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(InteractionPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(26, 26, 26)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(EditTaskButton)
-                            .addComponent(AddTaskButton))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(RemoveTaskButton)
-                        .addGap(24, 24, 24)
-                        .addComponent(StatScreenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(ToDoListPanel))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(ToDoListLabel)
+                            .addComponent(TaskCounter))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(ToDoListPanel))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(StatScreenPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(20, 20, 20))
         );
 
         pack();
@@ -252,18 +338,20 @@ public final class TamaGuiHome extends javax.swing.JFrame {
 
         int SelectedIndex = this.ToDoList.getSelectedIndex();
         //Object task = this.ToDoList.getSelectedValues();
-        if (SelectedIndex == -1) {
-            Error error = new Error();
-            error.SetErrorMsg("Select the Task for removal");
-            error.setVisible(true);
-            return;
-        }
-        if (this.ToDoList.getModel().getSize() == 0 ){
-            Error error = new Error();
-            error.SetErrorMsg("No Task remaining for removal");
-            error.setVisible(true);
-            return;
-        }
+        
+        //unnecessary if buttons are disabled
+//        if (SelectedIndex == -1) {
+//            Error error = new Error();
+//            error.SetErrorMsg("Select the Task for removal");
+//            error.setVisible(true);
+//            return;
+//        }
+//        if (this.ToDoList.getModel().getSize() == 0 ){
+//            Error error = new Error();
+//            error.SetErrorMsg("No Task remaining for removal");
+//            error.setVisible(true);
+//            return;
+//        }
         
         String task = this.ToDoList.getModel().getElementAt(SelectedIndex);
         System.out.println("Removing Task: "+ task);
@@ -310,6 +398,28 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         // On edit don't 
     }//GEN-LAST:event_EditTaskButtonActionPerformed
 
+    private void ToDoListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_ToDoListValueChanged
+        // TODO add your handling code here:
+        if (evt.getValueIsAdjusting() == false) {
+
+            if (ToDoList.getSelectedIndex() == -1) {
+                //No selection, disable buttons
+                EditTaskButton.setEnabled(false);
+                RemoveTaskButton.setEnabled(false);
+
+            } else {
+                //Selection, enable buttons
+                EditTaskButton.setEnabled(true);
+                RemoveTaskButton.setEnabled(true);
+            }
+        }
+    }//GEN-LAST:event_ToDoListValueChanged
+
+    private void formMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_formMouseClicked
+        // TODO add your handling code here:
+        ToDoList.clearSelection();
+    }//GEN-LAST:event_formMouseClicked
+
     public void addPoints(int points) {
 
         //OverFlow
@@ -321,11 +431,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         }else {
              this.points += points;
         }
-        PointsBar.setValue(this.points);
-    }
-    
-    public int getPoints() {
-        return this.points;
+//        PointsCounter.setText(String.valueOf(points));
     }
 
     public static void main(String args[]) {
@@ -363,13 +469,18 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private javax.swing.JLabel Avatar;
     private javax.swing.JLabel AvatarName;
     private javax.swing.JButton EditTaskButton;
+    private javax.swing.JProgressBar HealthBar;
     private javax.swing.JPanel InteractionPanel;
-    private javax.swing.JProgressBar PointsBar;
+    private javax.swing.JLabel PointsCounter;
     private javax.swing.JLabel PointsLabel;
     private javax.swing.JButton RemoveTaskButton;
     private javax.swing.JPanel StatScreenPanel;
+    private javax.swing.JLabel TaskCounter;
     private javax.swing.JList<String> ToDoList;
     private javax.swing.JLabel ToDoListLabel;
     private javax.swing.JScrollPane ToDoListPanel;
+    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }

@@ -121,7 +121,7 @@ public class addTask extends javax.swing.JFrame {
         TaskNameLabel = new javax.swing.JLabel();
         DueDateLabel = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jScrollPane1.setViewportView(TaskName);
 
