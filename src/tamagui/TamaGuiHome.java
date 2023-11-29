@@ -80,7 +80,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
                 this.minuteTicks = 0;
             }*/
               
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.MINUTES);
         ScheduledExecutorService executorHealth = Executors.newSingleThreadScheduledExecutor(); 
         executorHealth.scheduleAtFixedRate(() -> {
             int health= (3*this.getFullness()+2*this.getEntertained() + this.getHappiness())/6;
