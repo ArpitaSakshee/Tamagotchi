@@ -33,7 +33,17 @@ public class InteractionScreen extends javax.swing.JFrame {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
         executor.scheduleAtFixedRate(() -> {
             int health= (3*home.getFullness()+2*home.getEntertained() + home.getHappiness())/6;
-            HealthBar.setValue(health);      
+            HealthBar.setValue(health);  
+            if (health > 75) {
+                healthIndicatorLabel.setText("Healthy");
+            } else if (health > 50) {
+                healthIndicatorLabel.setText("Weak");
+            }else if (health >0 ){
+                healthIndicatorLabel.setText("Sick");
+            } else{
+                healthIndicatorLabel.setText("Dead");
+            }
+            
         }, 0, 1, TimeUnit.SECONDS); 
     }
 
