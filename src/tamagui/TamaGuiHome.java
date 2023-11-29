@@ -53,7 +53,6 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         // Lets give 10 starting points
         this.points = 10;
         PointsCounter.setText(String.valueOf(points));
-        int counter = 0;
 
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
         executor.scheduleAtFixedRate(() -> {
@@ -81,7 +80,12 @@ public final class TamaGuiHome extends javax.swing.JFrame {
                 this.minuteTicks = 0;
             }*/
               
-        }, 0, 1, TimeUnit.MINUTES); 
+        }, 0, 1, TimeUnit.MINUTES);
+        ScheduledExecutorService executorHealth = Executors.newSingleThreadScheduledExecutor(); 
+        executorHealth.scheduleAtFixedRate(() -> {
+            int health= (3*this.getFullness()+2*this.getEntertained() + this.getHappiness())/6;
+            HealthBar.setValue(health);      
+        }, 0, 1, TimeUnit.SECONDS); 
     }
     
     public void addTask(Task task) {
@@ -145,9 +149,6 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         return statsScreen.getHappiness();
     }
     
-    public void setHealth(int health) {
-        HealthBar.setValue(health);
-    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

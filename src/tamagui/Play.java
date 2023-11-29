@@ -42,11 +42,11 @@ public class Play extends javax.swing.JFrame {
         jTextArea2.setColumns(20);
         jTextArea2.setLineWrap(true);
         jTextArea2.setRows(5);
-        jTextArea2.setText("Your little friend will give you a random number between 1-9. Your goal is to guess whether the next number it thinks of will be higher or lower than the given number. Note that it cannot pick a number higher than 9, or lower than 1.");
+        jTextArea2.setText("Your little friend will give you a random number between 1-9. Your goal is to guess whether the next number it thinks of will be higher or lower than the 5. Note that it cannot pick a number higher than 9, or lower than 1.");
         jTextArea2.setWrapStyleWord(true);
         jScrollPane3.setViewportView(jTextArea2);
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Higher", "Lower" }));
         jComboBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jComboBox1ActionPerformed(evt);
@@ -66,7 +66,7 @@ public class Play extends javax.swing.JFrame {
                         .addGap(14, 14, 14)
                         .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(54, 54, 54)
+                        .addGap(51, 51, 51)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -77,9 +77,9 @@ public class Play extends javax.swing.JFrame {
                 .addComponent(jLabel1)
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(66, 66, 66)
+                .addGap(26, 26, 26)
                 .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(90, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         pack();

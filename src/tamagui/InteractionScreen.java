@@ -5,6 +5,9 @@
 package tamagui;
 
 import java.awt.Image;
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 import javax.swing.ImageIcon;
 
@@ -25,7 +28,13 @@ public class InteractionScreen extends javax.swing.JFrame {
         String avatar = home.getAvatar();
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
         ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarPath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
-        Interactfriend.setIcon(iconLogo); 
+        Interactfriend.setIcon(iconLogo);
+        
+        ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
+        executor.scheduleAtFixedRate(() -> {
+            int health= (3*home.getFullness()+2*home.getEntertained() + home.getHappiness())/6;
+            HealthBar.setValue(health);      
+        }, 0, 1, TimeUnit.SECONDS); 
     }
 
     public void updateAvatar(String avatarImagePath, String avatarName){
@@ -54,24 +63,16 @@ public class InteractionScreen extends javax.swing.JFrame {
     
     public void updateFullness(int points) {
          home.updateFullness(points);
-         updateHealth();
     }
     
     public void updateEntertained(int points) {
          home.updateEntertained(points);
-         updateHealth();
     }
     
     public void updateHappiness(int points) {
          home.updateHappiness(points);
-         updateHealth();
     }
     
-    public void updateHealth(){
-        int health= (3*home.getFullness()+2*home.getEntertained() + home.getHappiness())/6;
-        healthBar.setValue(health);
-        home.setHealth(health);
-    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -90,9 +91,9 @@ public class InteractionScreen extends javax.swing.JFrame {
         Avatar = new javax.swing.JButton();
         accessorizeButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        healthBar = new javax.swing.JProgressBar();
         healthIndicatorLabel = new javax.swing.JLabel();
         healthPointsLabel = new javax.swing.JLabel();
+        HealthBar = new javax.swing.JProgressBar();
         jPanel3 = new javax.swing.JPanel();
         Interactfriend = new javax.swing.JLabel();
 
@@ -179,11 +180,6 @@ public class InteractionScreen extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        healthBar.setForeground(new java.awt.Color(0, 0, 0));
-        healthBar.setValue(100);
-        healthBar.setString("100");
-        healthBar.setStringPainted(true);
-
         healthIndicatorLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         healthIndicatorLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         healthIndicatorLabel.setText("Healthy");
@@ -191,15 +187,17 @@ public class InteractionScreen extends javax.swing.JFrame {
         healthPointsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         healthPointsLabel.setText("Health Points:");
 
+        HealthBar.setStringPainted(true);
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(healthPointsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
                 .addComponent(healthIndicatorLabel))
-            .addComponent(healthBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(HealthBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -209,8 +207,8 @@ public class InteractionScreen extends javax.swing.JFrame {
                     .addComponent(healthPointsLabel)
                     .addComponent(healthIndicatorLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(healthBar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(38, 38, 38))
+                .addComponent(HealthBar, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(29, 29, 29))
         );
 
         jPanel3.setBackground(new java.awt.Color(255, 255, 255));
@@ -289,10 +287,10 @@ public class InteractionScreen extends javax.swing.JFrame {
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Avatar;
+    private javax.swing.JProgressBar HealthBar;
     private javax.swing.JLabel Interactfriend;
     private javax.swing.JButton accessorizeButton1;
     private javax.swing.JButton feedButton;
-    private javax.swing.JProgressBar healthBar;
     private javax.swing.JLabel healthIndicatorLabel;
     private javax.swing.JLabel healthPointsLabel;
     private javax.swing.JPanel jPanel1;
