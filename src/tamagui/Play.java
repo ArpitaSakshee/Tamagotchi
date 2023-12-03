@@ -75,7 +75,7 @@ public class Play extends javax.swing.JFrame {
         BoostName.setText("Happiness:  +30");
 
         BoostName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        BoostName1.setText("Entertained:  +10");
+        BoostName1.setText("Wellness:  +10");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -166,7 +166,7 @@ public class Play extends javax.swing.JFrame {
             error.SetErrorMsg("Avatar Guess " + guess + ".You Loss.");
         }
         this.home.updateHappiness(30);
-        this.home.updateEntertained(10);
+        this.home.updateWellness(10);
         error.setVisible(true);
     }//GEN-LAST:event_GuessActionPerformed
 

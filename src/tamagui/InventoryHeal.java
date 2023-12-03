@@ -76,7 +76,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
         HealPanel.setViewportView(HealList);
 
         useItem.setText("Use Item");
-        useItem.setToolTipText("Heal your avatar to increase his happiness.");
+        useItem.setToolTipText("Heal your avatar to increase his wellness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);
@@ -88,7 +88,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
         CostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CostValue.setText("00");
 
-        BoostName.setText("Happiness:");
+        BoostName.setText("Wellness:");
 
         BoostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BoostValue.setText("00");
@@ -213,7 +213,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
         } else {
             this.home.addPoints(-1*selectedItem.getCost());
         }
-        this.home.updateHappiness(selectedItem.getBoost_1());
+        this.home.updateWellness(selectedItem.getBoost_1());
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_useItemActionPerformed

@@ -4,12 +4,8 @@
  */
 package tamagui;
 
-import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.Random;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 
 
@@ -37,7 +33,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         this.addTask(new Task("Task 3","Easy","01/01/2024", "23:09"));
         
         //set up avatar
-        String [] avatars = {"Crocodile", "Dog", "Owl", "Rabbit", "Radish"};
+        String [] avatars = {"Ozzo", "Shey", "Milo", "Pentunia", "Tee"};
         Random rand = new Random();
         this.avatar = avatars[rand.nextInt(avatars.length)];
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
@@ -91,8 +87,8 @@ public final class TamaGuiHome extends javax.swing.JFrame {
          this.interactionScreen.updateFullness(points);
     }
     
-    public void updateEntertained(int points) {
-         this.interactionScreen.updateEntertained(points);
+    public void updateWellness(int points) {
+         this.interactionScreen.updateWellness(points);
     }
     
     public void updateHappiness(int points) {
@@ -250,6 +246,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         );
 
         EditTaskButton.setText("Edit Task");
+        EditTaskButton.setToolTipText("Edit task won't give any points.");
         EditTaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 EditTaskButtonActionPerformed(evt);
@@ -257,6 +254,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         AddTaskButton.setText("Add Task");
+        AddTaskButton.setToolTipText("Add task to gain points.");
         AddTaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AddTaskButtonActionPerformed(evt);
@@ -264,6 +262,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         CompleteTaskButton.setText("Complete Task");
+        CompleteTaskButton.setToolTipText("Complete task to gain points based on difficulty.");
         CompleteTaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CompleteTaskButtonActionPerformed(evt);
@@ -271,6 +270,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         RemoveTaskButton.setText("Remove Task");
+        RemoveTaskButton.setToolTipText("Remove Task won't give any points.");
         RemoveTaskButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 RemoveTaskButtonActionPerformed(evt);
@@ -318,6 +318,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         TaskCounter.setText("0");
 
         FeedButton.setText("Feed");
+        FeedButton.setToolTipText("Feed avatar to increase fullness.");
         FeedButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 FeedButtonActionPerformed(evt);
@@ -325,6 +326,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         HealButton.setText("Heal");
+        HealButton.setToolTipText("Heal avatar to increase wellness.");
         HealButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 HealButtonActionPerformed(evt);
@@ -332,6 +334,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         ToyButton.setText("Toy");
+        ToyButton.setToolTipText("Play with avatar to increase happiness.");
         ToyButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ToyButtonActionPerformed(evt);
@@ -339,6 +342,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         AccessorizeButton1.setText("Accessorize");
+        AccessorizeButton1.setToolTipText("Dress you avatar.");
         AccessorizeButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AccessorizeButton1ActionPerformed(evt);
@@ -346,6 +350,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         AvatarButton.setText("Avatar");
+        AvatarButton.setToolTipText("Change avatar.");
         AvatarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AvatarButtonActionPerformed(evt);
@@ -353,6 +358,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         });
 
         PlayButton.setText("Play");
+        PlayButton.setToolTipText("Play avatar to increase his happiness and wellness.");
         PlayButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 PlayButtonActionPerformed(evt);

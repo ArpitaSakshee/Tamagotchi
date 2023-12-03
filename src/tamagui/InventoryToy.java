@@ -76,7 +76,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         ToyPanel.setViewportView(ToyList);
 
         useItem.setText("Use item");
-        useItem.setToolTipText("Play with toy to increase avatar entertainment.");
+        useItem.setToolTipText("Play with toy to increase avatar happiness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);
@@ -88,7 +88,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         CostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CostValue.setText("00");
 
-        BoostName.setText("Entertained:");
+        BoostName.setText("Happiness:");
 
         BoostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BoostValue.setText("00");
@@ -213,7 +213,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         } else {
             this.home.addPoints(-1*selectedItem.getCost());
         }
-        this.home.updateEntertained(selectedItem.getBoost_1());
+        this.home.updateHappiness(selectedItem.getBoost_1());
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_useItemActionPerformed

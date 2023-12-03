@@ -116,7 +116,7 @@
         <Component class="javax.swing.JButton" name="SelectAvatar">
           <Properties>
             <Property name="text" type="java.lang.String" value="Select Avatar"/>
-            <Property name="toolTipText" type="java.lang.String" value="Change to selected avatar."/>
+            <Property name="toolTipText" type="java.lang.String" value="Select avatar to change."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="SelectAvatarActionPerformed"/>

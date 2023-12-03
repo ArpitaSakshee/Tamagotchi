@@ -4,18 +4,14 @@
  */
 package tamagui;
 
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-
 /**
  *
  * @author Christian
  */
 public class StatScreen extends javax.swing.JFrame {
     private int fullness;
-    private int entertained;
     private int happiness;
+    private int wellness;
     /**
      * Creates new form StatScreen
      */
@@ -32,32 +28,32 @@ public class StatScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        EntertainedBar = new javax.swing.JProgressBar();
         FullnessBar = new javax.swing.JProgressBar();
         HappinessBar = new javax.swing.JProgressBar();
-        FullnessLabel = new javax.swing.JLabel();
-        Entertained = new javax.swing.JLabel();
+        WellnessBar = new javax.swing.JProgressBar();
         HappinessLabel = new javax.swing.JLabel();
+        FullnessLabel = new javax.swing.JLabel();
+        WellnessLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        EntertainedBar.setStringPainted(true);
 
         FullnessBar.setStringPainted(true);
 
         HappinessBar.setStringPainted(true);
 
+        WellnessBar.setStringPainted(true);
+
+        HappinessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        HappinessLabel.setText("Happiness");
+        HappinessLabel.setToolTipText("Decrease every 5 second");
+
         FullnessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         FullnessLabel.setText("Fullness");
         FullnessLabel.setToolTipText("Decrease every 10 second");
 
-        Entertained.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        Entertained.setText("Entertained");
-        Entertained.setToolTipText("Decrease every 5 second");
-
-        HappinessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
-        HappinessLabel.setText("Happiness");
-        HappinessLabel.setToolTipText("Decrease every 60 second");
+        WellnessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
+        WellnessLabel.setText("Wellness");
+        WellnessLabel.setToolTipText("Decrease every 30 second");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -65,14 +61,14 @@ public class StatScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(EntertainedBar, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .addComponent(FullnessBar, javax.swing.GroupLayout.DEFAULT_SIZE, 386, Short.MAX_VALUE)
+                    .addComponent(WellnessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(HappinessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(FullnessBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(WellnessLabel)
                             .addComponent(HappinessLabel)
-                            .addComponent(FullnessLabel)
-                            .addComponent(Entertained))
+                            .addComponent(FullnessLabel))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -80,17 +76,17 @@ public class StatScreen extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(19, 19, 19)
-                .addComponent(FullnessLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(FullnessBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23)
-                .addComponent(Entertained)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(EntertainedBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(HappinessLabel)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(HappinessBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23)
+                .addComponent(FullnessLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(FullnessBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(WellnessLabel)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(WellnessBar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(32, Short.MAX_VALUE))
         );
 
@@ -107,20 +103,20 @@ public class StatScreen extends javax.swing.JFrame {
         }else {
              this.fullness += fullness;
         }
-        FullnessBar.setValue(this.fullness);
+        HappinessBar.setValue(this.fullness);
     }
     
-    public void updateEntertained(int entertained) {
+    public void updateWellness(int wellness) {
         //OverFlow
-        if (this.entertained + entertained > 100){
-            this.entertained = 100;
-        }else if (this.entertained + entertained <= 0) {
+        if (this.wellness + wellness > 100){
+            this.wellness = 100;
+        }else if (this.wellness + wellness <= 0) {
             // underflow
-            this.entertained = 0;
+            this.wellness = 0;
         }else {
-             this.entertained += entertained;
+             this.wellness += wellness;
         }
-        EntertainedBar.setValue(this.entertained);
+        FullnessBar.setValue(this.wellness);
     }
     
  
@@ -134,15 +130,15 @@ public class StatScreen extends javax.swing.JFrame {
         }else {
              this.happiness += happiness;
         }
-        HappinessBar.setValue(this.happiness);
+        WellnessBar.setValue(this.happiness);
     }
   
     public int getFullness() {
         return this.fullness;
     }
     
-    public int getEntertained() {
-        return this.entertained;
+    public int getWellness() {
+        return this.wellness;
     }
     
     public int getHappiness() {
@@ -150,11 +146,11 @@ public class StatScreen extends javax.swing.JFrame {
     }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel Entertained;
-    private javax.swing.JProgressBar EntertainedBar;
     private javax.swing.JProgressBar FullnessBar;
     private javax.swing.JLabel FullnessLabel;
     private javax.swing.JProgressBar HappinessBar;
     private javax.swing.JLabel HappinessLabel;
+    private javax.swing.JProgressBar WellnessBar;
+    private javax.swing.JLabel WellnessLabel;
     // End of variables declaration//GEN-END:variables
 }

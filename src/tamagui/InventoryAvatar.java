@@ -22,11 +22,11 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         initComponents();
         this.home = home;
           Item [] items = {
-            new Item("Crocodile",30,0,0),
-            new Item("Dog",30,0,0),
-            new Item("Owl",30,0,0),
-            new Item("Rabbit",30,0,0),
-            new Item("Radish",30,0,0),
+            new Item("Ozzo",30,0,0),
+            new Item("Shey",30,0,0),
+            new Item("Milo",30,0,0),
+            new Item("Petunia",30,0,0),
+            new Item("Tee",30,0,0),
         };
         addAvatars(items);
         this.inventory = items;
@@ -71,7 +71,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         AvatarPanel.setViewportView(AvatarList);
 
         SelectAvatar.setText("Select Avatar");
-        SelectAvatar.setToolTipText("Change to selected avatar.");
+        SelectAvatar.setToolTipText("Select avatar to change.");
         SelectAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelectAvatarActionPerformed(evt);

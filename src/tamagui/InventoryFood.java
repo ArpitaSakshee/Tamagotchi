@@ -66,7 +66,7 @@ public final class InventoryFood extends javax.swing.JFrame {
         FeedPanel.setViewportView(FeedList);
 
         useItem.setText("Use Item");
-        useItem.setToolTipText("Feed your avatar to increase his fullness");
+        useItem.setToolTipText("Feed your avatar to increase his fullness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);

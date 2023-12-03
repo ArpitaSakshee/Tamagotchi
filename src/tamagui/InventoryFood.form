@@ -126,7 +126,7 @@
         <Component class="javax.swing.JButton" name="useItem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Use Item"/>
-            <Property name="toolTipText" type="java.lang.String" value="Feed your avatar to increase his fullness"/>
+            <Property name="toolTipText" type="java.lang.String" value="Feed your avatar to increase his fullness."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useItemActionPerformed"/>

@@ -107,7 +107,7 @@
               <Font name="Segoe UI" size="24" style="0"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Health Points:"/>
-            <Property name="toolTipText" type="java.lang.String" value="Health Can be derived as follows = (3*Fullness +2*Entertained+1*Happiness)/6"/>
+            <Property name="toolTipText" type="java.lang.String" value="Health Can be derived as follows = (3*Fullness +2*Happiness+1*Wellness)/6"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JProgressBar" name="HealthBar">

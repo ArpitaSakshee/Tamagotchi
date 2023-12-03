@@ -43,18 +43,17 @@ public final class InteractionScreen extends javax.swing.JFrame {
             System.out.println("Application is running at " + new java.util.Date());
        
             this.minuteTicks++;
-            if (this.minuteTicks%60 == 0) {
-                System.out.println("Decrement Happines at " + new java.util.Date());
-                this.updateHappiness(-1);
-
+            if (this.minuteTicks%30 == 0) {
+                System.out.println("Decrement Wellness at " + new java.util.Date());
+                this.updateWellness(-1);
             }
             if (this.minuteTicks%10 == 0) {
                 System.out.println("Decrement Fullness at  " + new java.util.Date());
                 this.updateFullness(-1);
             } 
             if (this.minuteTicks%5 == 0) {
-               System.out.println("Decrement Entertained at " + new java.util.Date());
-               this.updateEntertained(-1);
+               System.out.println("Decrement Happines at " + new java.util.Date());
+               this.updateHappiness(-1);
             }
             //reset timer after 2 hours
             if (this.minuteTicks > 120){
@@ -62,8 +61,8 @@ public final class InteractionScreen extends javax.swing.JFrame {
             }
        
         }, 0, 1, TimeUnit.SECONDS);
+        this.updateWellness(100);
         this.updateFullness(100);
-        this.updateEntertained(100);
         this.updateHappiness(100);
     }
 
@@ -80,17 +79,18 @@ public final class InteractionScreen extends javax.swing.JFrame {
     }
     
     private void updateHealth() {
-       int health= (3*statsScreen.getFullness()+2*statsScreen.getEntertained() + statsScreen.getHappiness())/6;
+       int health= (3*statsScreen.getFullness()+2*statsScreen.getHappiness() + statsScreen.getWellness())/6;
        this.home.updateHealth(health);
        this.HealthBar.setValue(health);
        if (health > 75) {
-                healthIndicatorLabel.setText("Healthy");
+            healthIndicatorLabel.setText("Healthy");
         } else if (health > 50) {
-                healthIndicatorLabel.setText("Weak");
+            healthIndicatorLabel.setText("Weak");
         }else if (health >0 ){
-                healthIndicatorLabel.setText("Sick");
+            healthIndicatorLabel.setText("Sick");
         } else{
-                healthIndicatorLabel.setText("Dead");
+            healthIndicatorLabel.setText("Dead");
+            String avatarName = this.home.getAvatarName();
         }
        System.out.println("Updating Health: " + health);
     }
@@ -100,8 +100,8 @@ public final class InteractionScreen extends javax.swing.JFrame {
         updateHealth();
     }
     
-    public void updateEntertained(int points) {
-        statsScreen.updateEntertained(points);
+    public void updateWellness(int points) {
+        statsScreen.updateWellness(points);
         updateHealth();
     }
     
@@ -136,7 +136,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
 
         healthPointsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         healthPointsLabel.setText("Health Points:");
-        healthPointsLabel.setToolTipText("Health Can be derived as follows = (3*Fullness +2*Entertained+1*Happiness)/6");
+        healthPointsLabel.setToolTipText("Health Can be derived as follows = (3*Fullness +2*Happiness+1*Wellness)/6");
 
         HealthBar.setStringPainted(true);
 

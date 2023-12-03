@@ -306,6 +306,7 @@
         <Component class="javax.swing.JButton" name="EditTaskButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Edit Task"/>
+            <Property name="toolTipText" type="java.lang.String" value="Edit task won&apos;t give any points."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="EditTaskButtonActionPerformed"/>
@@ -314,6 +315,7 @@
         <Component class="javax.swing.JButton" name="AddTaskButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Add Task"/>
+            <Property name="toolTipText" type="java.lang.String" value="Add task to gain points."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AddTaskButtonActionPerformed"/>
@@ -322,6 +324,7 @@
         <Component class="javax.swing.JButton" name="CompleteTaskButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Complete Task"/>
+            <Property name="toolTipText" type="java.lang.String" value="Complete task to gain points based on difficulty."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="CompleteTaskButtonActionPerformed"/>
@@ -330,6 +333,7 @@
         <Component class="javax.swing.JButton" name="RemoveTaskButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Remove Task"/>
+            <Property name="toolTipText" type="java.lang.String" value="Remove Task won&apos;t give any points."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="RemoveTaskButtonActionPerformed"/>
@@ -397,6 +401,7 @@
         <Component class="javax.swing.JButton" name="FeedButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Feed"/>
+            <Property name="toolTipText" type="java.lang.String" value="Feed avatar to increase fullness."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="FeedButtonActionPerformed"/>
@@ -405,6 +410,7 @@
         <Component class="javax.swing.JButton" name="HealButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Heal"/>
+            <Property name="toolTipText" type="java.lang.String" value="Heal avatar to increase wellness."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="HealButtonActionPerformed"/>
@@ -413,6 +419,7 @@
         <Component class="javax.swing.JButton" name="ToyButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Toy"/>
+            <Property name="toolTipText" type="java.lang.String" value="Play with avatar to increase happiness."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ToyButtonActionPerformed"/>
@@ -421,6 +428,7 @@
         <Component class="javax.swing.JButton" name="AccessorizeButton1">
           <Properties>
             <Property name="text" type="java.lang.String" value="Accessorize"/>
+            <Property name="toolTipText" type="java.lang.String" value="Dress you avatar."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AccessorizeButton1ActionPerformed"/>
@@ -429,6 +437,7 @@
         <Component class="javax.swing.JButton" name="AvatarButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Avatar"/>
+            <Property name="toolTipText" type="java.lang.String" value="Change avatar."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="AvatarButtonActionPerformed"/>
@@ -437,6 +446,7 @@
         <Component class="javax.swing.JButton" name="PlayButton">
           <Properties>
             <Property name="text" type="java.lang.String" value="Play"/>
+            <Property name="toolTipText" type="java.lang.String" value="Play avatar to increase his happiness and wellness."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="PlayButtonActionPerformed"/>

@@ -157,7 +157,7 @@
         <Component class="javax.swing.JLabel" name="BoostName1">
           <Properties>
             <Property name="horizontalAlignment" type="int" value="0"/>
-            <Property name="text" type="java.lang.String" value="Entertained:  +10"/>
+            <Property name="text" type="java.lang.String" value="Wellness:  +10"/>
           </Properties>
         </Component>
       </SubComponents>
