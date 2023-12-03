@@ -16,7 +16,7 @@ import javax.swing.ImageIcon;
  *
  * @author Maya
  */
-public class InteractionScreen extends javax.swing.JFrame {
+public final class InteractionScreen extends javax.swing.JFrame {
     private final TamaGuiHome home;
     private final StatScreen statsScreen;
     private int minuteTicks;
@@ -41,9 +41,7 @@ public class InteractionScreen extends javax.swing.JFrame {
         executor.scheduleAtFixedRate(() -> {
             // Your task that needs to run every minute
             System.out.println("Application is running at " + new java.util.Date());
-            this.updateHappiness(-1);
-            this.updateFullness(-1);
-            this.updateEntertained(-1);
+       
             this.minuteTicks++;
             if (this.minuteTicks%60 == 0) {
                 System.out.println("Decrement Happines at " + new java.util.Date());
@@ -83,6 +81,15 @@ public class InteractionScreen extends javax.swing.JFrame {
        int health= (3*statsScreen.getFullness()+2*statsScreen.getEntertained() + statsScreen.getHappiness())/6;
        this.home.updateHealth(health);
        this.HealthBar.setValue(health);
+       if (health > 75) {
+                healthIndicatorLabel.setText("Healthy");
+        } else if (health > 50) {
+                healthIndicatorLabel.setText("Weak");
+        }else if (health >0 ){
+                healthIndicatorLabel.setText("Sick");
+        } else{
+                healthIndicatorLabel.setText("Dead");
+        }
        System.out.println("Updating Health: " + health);
     }
     
