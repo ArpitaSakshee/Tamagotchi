@@ -76,6 +76,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
         HealPanel.setViewportView(HealList);
 
         useItem.setText("Use Item");
+        useItem.setToolTipText("Heal your avatar to increase his happiness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);
@@ -184,7 +185,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
       String heal = HealList.getSelectedValue();
         if (heal == null || heal.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the heal for update");
+            error.SetErrorMsg("Select the heal");
             error.setVisible(true);
             return;
         }

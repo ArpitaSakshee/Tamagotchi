@@ -119,6 +119,7 @@
         <Component class="javax.swing.JButton" name="useItem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Use item"/>
+            <Property name="toolTipText" type="java.lang.String" value="Play with toy to increase avatar entertainment."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useItemActionPerformed"/>

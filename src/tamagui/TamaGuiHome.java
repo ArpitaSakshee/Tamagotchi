@@ -43,8 +43,8 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
         this.updateAvatar(avatarPath, this.avatar);
         
-        // Lets give 50 starting points
-        this.points = 50;
+        // Lets give 300 starting points
+        this.points = 300;
         PointsCounter.setText(String.valueOf(points));
         this.setVisible(true);
     }

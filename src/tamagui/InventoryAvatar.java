@@ -71,6 +71,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         AvatarPanel.setViewportView(AvatarList);
 
         SelectAvatar.setText("Select Avatar");
+        SelectAvatar.setToolTipText("Change to selected avatar.");
         SelectAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelectAvatarActionPerformed(evt);
@@ -141,7 +142,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         String avatarName = AvatarList.getSelectedValue();
         if (avatarName == null || avatarName.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the avatar for update");
+            error.SetErrorMsg("Select the avatar");
             error.setVisible(true);
             return;
         }

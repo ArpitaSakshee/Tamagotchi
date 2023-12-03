@@ -119,6 +119,7 @@
         <Component class="javax.swing.JButton" name="UseItem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Equip"/>
+            <Property name="toolTipText" type="java.lang.String" value="Dress your avatar with the selected accessory."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="UseItemActionPerformed"/>

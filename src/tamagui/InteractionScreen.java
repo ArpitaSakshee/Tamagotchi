@@ -47,10 +47,12 @@ public final class InteractionScreen extends javax.swing.JFrame {
                 System.out.println("Decrement Happines at " + new java.util.Date());
                 this.updateHappiness(-1);
 
-            } else if (this.minuteTicks%10 == 0) {
+            }
+            if (this.minuteTicks%10 == 0) {
                 System.out.println("Decrement Fullness at  " + new java.util.Date());
                 this.updateFullness(-1);
-            } else if (this.minuteTicks%5 == 0) {
+            } 
+            if (this.minuteTicks%5 == 0) {
                System.out.println("Decrement Entertained at " + new java.util.Date());
                this.updateEntertained(-1);
             }
@@ -59,7 +61,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
                 this.minuteTicks = 0;
             }
        
-        }, 0, 1, TimeUnit.MINUTES);
+        }, 0, 1, TimeUnit.SECONDS);
         this.updateFullness(100);
         this.updateEntertained(100);
         this.updateHappiness(100);
@@ -68,7 +70,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
     public void updateAvatar(String avatarImagePath, String avatarName){
         if (avatarName == null || avatarName.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the avatar for update");
+            error.SetErrorMsg("Select the avatar");
             error.setVisible(true);
             return;
         }
@@ -134,6 +136,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
 
         healthPointsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         healthPointsLabel.setText("Health Points:");
+        healthPointsLabel.setToolTipText("Health Can be derived as follows = (3*Fullness +2*Entertained+1*Happiness)/6");
 
         HealthBar.setStringPainted(true);
 

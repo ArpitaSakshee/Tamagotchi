@@ -76,6 +76,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         ToyPanel.setViewportView(ToyList);
 
         useItem.setText("Use item");
+        useItem.setToolTipText("Play with toy to increase avatar entertainment.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);
@@ -184,7 +185,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         String toy = ToyList.getSelectedValue();
         if (toy == null || toy.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the toy for update");
+            error.SetErrorMsg("Select the toy");
             error.setVisible(true);
             return;
         }

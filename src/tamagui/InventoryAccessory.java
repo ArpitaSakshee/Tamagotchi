@@ -69,6 +69,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         AccessoryPanel.setViewportView(AccessoryList);
 
         UseItem.setText("Equip");
+        UseItem.setToolTipText("Dress your avatar with the selected accessory.");
         UseItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UseItemActionPerformed(evt);
@@ -167,7 +168,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         String accessory = AccessoryList.getSelectedValue();
         if (accessory == null || accessory.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the accesory for update");
+            error.SetErrorMsg("Select the accesory");
             error.setVisible(true);
             return;
         }

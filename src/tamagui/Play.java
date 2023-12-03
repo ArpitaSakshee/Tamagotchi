@@ -161,9 +161,9 @@ public class Play extends javax.swing.JFrame {
         String userGuess= PlayChoice.getSelectedItem().toString();
         if (("Higher".equals(userGuess)  && guess >5) ||
              ("Lower".equals(userGuess)  && guess <5)) {
-            error.SetErrorMsg("Avatar Guess " + guess + ". You WON.");
+            error.SetErrorMsg("Avatar Guess " + guess + ".You Won.");
         } else {
-            error.SetErrorMsg("Avatar Guess " + guess + ". You Loss.");
+            error.SetErrorMsg("Avatar Guess " + guess + ".You Loss.");
         }
         this.home.updateHappiness(30);
         this.home.updateEntertained(10);

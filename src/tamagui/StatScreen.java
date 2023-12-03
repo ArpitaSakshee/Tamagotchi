@@ -49,12 +49,15 @@ public class StatScreen extends javax.swing.JFrame {
 
         FullnessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         FullnessLabel.setText("Fullness");
+        FullnessLabel.setToolTipText("Decrease every 10 second");
 
         Entertained.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         Entertained.setText("Entertained");
+        Entertained.setToolTipText("Decrease every 5 second");
 
         HappinessLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 14)); // NOI18N
         HappinessLabel.setText("Happiness");
+        HappinessLabel.setToolTipText("Decrease every 60 second");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);

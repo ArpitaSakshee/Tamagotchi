@@ -119,6 +119,7 @@
         <Component class="javax.swing.JButton" name="useItem">
           <Properties>
             <Property name="text" type="java.lang.String" value="Use Item"/>
+            <Property name="toolTipText" type="java.lang.String" value="Heal your avatar to increase his happiness."/>
           </Properties>
           <Events>
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="useItemActionPerformed"/>
