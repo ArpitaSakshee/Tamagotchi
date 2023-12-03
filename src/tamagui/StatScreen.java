@@ -103,7 +103,7 @@ public class StatScreen extends javax.swing.JFrame {
         }else {
              this.fullness += fullness;
         }
-        HappinessBar.setValue(this.fullness);
+        FullnessBar.setValue(this.fullness);
     }
     
     public void updateWellness(int wellness) {
@@ -116,7 +116,7 @@ public class StatScreen extends javax.swing.JFrame {
         }else {
              this.wellness += wellness;
         }
-        FullnessBar.setValue(this.wellness);
+        WellnessBar.setValue(this.wellness);
     }
     
  
@@ -130,7 +130,7 @@ public class StatScreen extends javax.swing.JFrame {
         }else {
              this.happiness += happiness;
         }
-        WellnessBar.setValue(this.happiness);
+        HappinessBar.setValue(this.happiness);
     }
   
     public int getFullness() {

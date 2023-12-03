@@ -22,6 +22,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         initComponents();
         this.home = home;
         Item [] items = {
+            new Item("Default",0,0,0),
             new Item("Bow",30,0,0),
             new Item("Glasses",50,0,0),
             new Item("Duck",100,0,0),
@@ -140,7 +141,9 @@ public final class InventoryAccessory extends javax.swing.JFrame {
 
     private void AccessoryListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AccessoryListValueChanged
     String accessory = AccessoryList.getSelectedValue();
-        String accessoryIconPath = "Images/Accessory/" + accessory + ".png";
+        String avatar = home.getAvatarName();
+        String health = home.getHealth();
+        String accessoryIconPath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png"; 
         ImageIcon accessoryIcon = new ImageIcon(new ImageIcon(accessoryIconPath).getImage().getScaledInstance(120, 200, Image.SCALE_DEFAULT));
         AccessoryImage.setIcon(accessoryIcon); 
         AccessoryImage.setVisible(true);
@@ -162,6 +165,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         CostValue.setText(String.valueOf(selectedItem.getCost()));
         Cost.setVisible(true);
         CostValue.setVisible(true);
+        home.setAccessory(accessory);
     }//GEN-LAST:event_AccessoryListValueChanged
 
     private void UseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseItemActionPerformed
@@ -196,10 +200,11 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         } else {
             this.home.addPoints(-1*selectedItem.getCost());
         }
-        String avatarName = this.home.getAvatarName();
-        String avatarImagePath =  "Images/Avatar/"+ accessory +"/"+avatarName+ ".png"; 
+        String avatar = home.getAvatarName();
+        String health = home.getHealth();
+        String avatarImagePath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png";
         System.out.println("Selecting avatar: "+ avatarImagePath + " with accessory: "+ accessory);
-        this.home.updateAvatar(avatarImagePath, avatarName);
+        this.home.updateAvatar(avatarImagePath, avatar);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_UseItemActionPerformed

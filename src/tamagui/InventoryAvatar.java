@@ -170,7 +170,10 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         } else {
             this.home.addPoints(-1*selectedItem.getCost());
         }
-        String avatarImagePath =  "Images/Avatar/"+ avatarName+ ".png";
+        String avatar = home.getAvatarName();
+        String health = home.getHealth();
+        String accessory = home.getAccessory();
+        String avatarImagePath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png"; 
         System.out.println("Selecting avatar: "+ avatarImagePath);
         this.home.updateAvatar(avatarImagePath, avatarName);
         this.setVisible(false);
@@ -179,7 +182,9 @@ public final class InventoryAvatar extends javax.swing.JFrame {
 
     private void AvatarListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AvatarListValueChanged
         String avatar = AvatarList.getSelectedValue();
-        String avatarIconPath = "Images/Avatar/" + avatar + ".png";
+        String accessory = home.getAccessory();
+        String health = home.getHealth();
+        String avatarIconPath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png"; 
         ImageIcon avatarIcon = new ImageIcon(new ImageIcon(avatarIconPath).getImage().getScaledInstance(120, 200, Image.SCALE_DEFAULT));
         AvatarImage.setIcon(avatarIcon);
         AvatarImage.setVisible(true);

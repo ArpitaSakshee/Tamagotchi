@@ -29,7 +29,9 @@ public final class InteractionScreen extends javax.swing.JFrame {
         initComponents();
         this.home = tamaGuiHome;
         String avatar = home.getAvatarName();
-        String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
+        String health = home.getHealth();
+        String accessory = home.getAccessory();
+        String avatarPath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png"; 
         ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarPath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
         Interactfriend.setIcon(iconLogo);
         
@@ -40,7 +42,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
         executor.scheduleAtFixedRate(() -> {
             // Your task that needs to run every minute
-            System.out.println("Application is running at " + new java.util.Date());
+            //System.out.println("Application is running at " + new java.util.Date());
        
             this.minuteTicks++;
             if (this.minuteTicks%30 == 0) {
@@ -61,9 +63,9 @@ public final class InteractionScreen extends javax.swing.JFrame {
             }
        
         }, 0, 1, TimeUnit.SECONDS);
-        this.updateWellness(100);
-        this.updateFullness(100);
-        this.updateHappiness(100);
+        this.updateWellness(50);
+        this.updateFullness(50);
+        this.updateHappiness(50);
     }
 
     public void updateAvatar(String avatarImagePath, String avatarName){
@@ -79,20 +81,29 @@ public final class InteractionScreen extends javax.swing.JFrame {
     }
     
     private void updateHealth() {
-       int health= (3*statsScreen.getFullness()+2*statsScreen.getHappiness() + statsScreen.getWellness())/6;
-       this.home.updateHealth(health);
-       this.HealthBar.setValue(health);
-       if (health > 75) {
+       int healthValue= (3*statsScreen.getFullness()+2*statsScreen.getHappiness() + statsScreen.getWellness())/6;
+       this.home.updateHealth(healthValue);
+       this.HealthBar.setValue(healthValue);
+       if (healthValue > 75) {
             healthIndicatorLabel.setText("Healthy");
-        } else if (health > 50) {
+            this.home.setHealth("Healthy");
+        } else if (healthValue > 50) {
             healthIndicatorLabel.setText("Weak");
-        }else if (health >0 ){
+            this.home.setHealth("Weak");
+        }else if (healthValue >0 ){
             healthIndicatorLabel.setText("Sick");
+            this.home.setHealth("Sick");
         } else{
             healthIndicatorLabel.setText("Dead");
-            String avatarName = this.home.getAvatarName();
+            this.home.setHealth("Dead");
         }
-       System.out.println("Updating Health: " + health);
+        String avatar = home.getAvatarName();
+        String health = home.getHealth();
+        String accessory = home.getAccessory();
+        String avatarImagePath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png"; 
+        System.out.println("Selecting avatar: "+ avatarImagePath);
+        this.home.updateAvatar(avatarImagePath, avatar);
+        System.out.println("Updating Health: " + health);
     }
     
     public void updateFullness(int points) {

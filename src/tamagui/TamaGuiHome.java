@@ -18,6 +18,8 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     private final InteractionScreen interactionScreen; // Declare an instance of StatScreen
     private static ToDoList todoList;
     private String avatar;
+    private String accessory;
+    private String health;
     private int points;
 
     public TamaGuiHome() {
@@ -27,6 +29,8 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         EditTaskButton.setEnabled(false);
         CompleteTaskButton.setEnabled(false);
         RemoveTaskButton.setEnabled(false);
+        this.accessory = "Default";
+        this.health = "Healthy";
         
         this.addTask(new Task("Task 1","Hard","11/02/2023", "01:11")); 
         this.addTask(new Task("Task 2","Medium","11/12/2023", "12:02")); 
@@ -36,7 +40,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         String [] avatars = {"Ozzo", "Shey", "Milo", "Pentunia", "Tee"};
         Random rand = new Random();
         this.avatar = avatars[rand.nextInt(avatars.length)];
-        String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
+        String avatarPath =  "Images/Avatar/"+ this.health + "/"+ this.accessory+"/" +avatar+ ".png"; 
         this.updateAvatar(avatarPath, this.avatar);
         
         // Lets give 300 starting points
@@ -62,6 +66,22 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     
     public int getPoints() {
         return this.points;
+    }
+    
+    public void setHealth(String health) {
+        this.health = health;
+    }
+    
+    public String getHealth() {
+        return this.health;
+    }
+    
+    public void setAccessory(String accessory) {
+        this.accessory = accessory;
+    }
+    
+    public String getAccessory() {
+        return this.accessory;
     }
     
     public void updateAvatar(String avatarImagePath, String avatarName){
