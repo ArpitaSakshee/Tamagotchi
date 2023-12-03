@@ -12,14 +12,15 @@ import javax.swing.ImageIcon;
  * @author Maya
  */
 public final class InventoryFood extends javax.swing.JFrame {
-    private final InteractionScreen avatarScreen;
+    private final TamaGuiHome  home;
     private final Item[] inventory; 
     /**
      * Creates new form InteractionFeed
+     * @param home
      */
-    public InventoryFood(InteractionScreen interactionScreen) {
+    public InventoryFood(TamaGuiHome home) {
         initComponents();
-        this.avatarScreen = interactionScreen;
+        this.home = home;
         Item [] items = {
             new Item("Peppermint",1,2,0),
             new Item("Lollipop",3,5,0),
@@ -28,7 +29,7 @@ public final class InventoryFood extends javax.swing.JFrame {
             new Item("Donut",9,15,0),
             };
         this.inventory = items;
-        addFoods(items);
+        addFeeds(items);
         BoostName.setVisible(false);
         BoostValue.setVisible(false);
         Cost.setVisible(false);
@@ -44,27 +45,27 @@ public final class InventoryFood extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        foodList = new javax.swing.JList<>();
+        Feed = new javax.swing.JPanel();
+        FeedPanel = new javax.swing.JScrollPane();
+        FeedList = new javax.swing.JList<>();
         useItem = new javax.swing.JButton();
-        FoodImage = new javax.swing.JLabel();
+        FeedImage = new javax.swing.JLabel();
         Cost = new javax.swing.JLabel();
         CostValue = new javax.swing.JLabel();
         BoostName = new javax.swing.JLabel();
         BoostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Food");
+        setTitle("Feed Avatar");
 
-        foodList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        FeedList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                foodListValueChanged(evt);
+                FeedListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(foodList);
+        FeedPanel.setViewportView(FeedList);
 
-        useItem.setText("Use item");
+        useItem.setText("Use Item");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);
@@ -73,90 +74,91 @@ public final class InventoryFood extends javax.swing.JFrame {
 
         Cost.setText("Cost:");
 
+        CostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CostValue.setText("00");
 
         BoostName.setText("Fullness:");
 
+        BoostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         BoostValue.setText("00");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout FeedLayout = new javax.swing.GroupLayout(Feed);
+        Feed.setLayout(FeedLayout);
+        FeedLayout.setHorizontalGroup(
+            FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(FeedLayout.createSequentialGroup()
                 .addGap(15, 15, 15)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 108, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(useItem)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(FeedPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(FeedLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addGroup(FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(FeedLayout.createSequentialGroup()
                                 .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 63, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(27, 27, 27)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(BoostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(FoodImage, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(40, Short.MAX_VALUE))
+                            .addGroup(FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, FeedLayout.createSequentialGroup()
+                                    .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGap(34, 34, 34)
+                                    .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(useItem, javax.swing.GroupLayout.PREFERRED_SIZE, 109, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addGroup(FeedLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(FeedImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(7, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(12, 12, 12)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+        FeedLayout.setVerticalGroup(
+            FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, FeedLayout.createSequentialGroup()
+                .addGroup(FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(FeedPanel)
+                    .addGroup(FeedLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(FeedImage, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BoostValue))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(FoodImage, javax.swing.GroupLayout.PREFERRED_SIZE, 156, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(FeedLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cost)
                             .addComponent(CostValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(useItem)))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Feed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Feed, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void useItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useItemActionPerformed
-        String food = foodList.getSelectedValue();
-        if (food == null || food.isEmpty()){
+        String feed = FeedList.getSelectedValue();
+        if (feed == null || feed.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the food for update");
+            error.SetErrorMsg("Select the feed for update");
             error.setVisible(true);
             return;
         }
-        int availablePoints = this.avatarScreen.getPoints();
+        int availablePoints = this.home.getPoints();
         // Find item from inventory
         Item selectedItem = this.inventory[0];
         boolean found=false;
         for (Item item : this.inventory) {
-            if (food.equals(item.getName())) {
+            if (feed.equals(item.getName())) {
                 selectedItem =  item;
                 found = true;
             }
@@ -173,20 +175,19 @@ public final class InventoryFood extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         } else {
-            this.avatarScreen.addPoints(-1*selectedItem.getCost());
+            this.home.addPoints(-1*selectedItem.getCost());
         }
-        this.avatarScreen.updateFullness(selectedItem.getBoost_1());
+        this.home.updateFullness(selectedItem.getBoost_1());
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_useItemActionPerformed
 
-    private void foodListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_foodListValueChanged
-        // TODO add your handling code here:
-        String food = foodList.getSelectedValue();
+    private void FeedListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_FeedListValueChanged
+        String food = FeedList.getSelectedValue();
         String foodIconPath = "Images/Food/" + food + ".png";
-        ImageIcon foodIcon = new ImageIcon(new ImageIcon(foodIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
-        FoodImage.setIcon(foodIcon); 
-        FoodImage.setVisible(true);
+        ImageIcon foodIcon = new ImageIcon(new ImageIcon(foodIconPath).getImage().getScaledInstance(120, 200, Image.SCALE_DEFAULT));
+        FeedImage.setIcon(foodIcon); 
+        FeedImage.setVisible(true);
         // Find item from inventory
         Item selectedItem = this.inventory[0];
         boolean found=false;
@@ -203,16 +204,15 @@ public final class InventoryFood extends javax.swing.JFrame {
             return;
         }
         CostValue.setText(String.valueOf(selectedItem.getCost()));
-        BoostValue.setText(String.valueOf(selectedItem.getBoost_1()));
+        BoostValue.setText("+"+String.valueOf(selectedItem.getBoost_1()));
         BoostName.setVisible(true);
         BoostValue.setVisible(true);
         Cost.setVisible(true);
         CostValue.setVisible(true);
-        
-    }//GEN-LAST:event_foodListValueChanged
+    }//GEN-LAST:event_FeedListValueChanged
 
-    public void addFoods(Item[] items){
-       foodList.setModel(new javax.swing.AbstractListModel<String>() {
+    public void addFeeds(Item[] items){
+       FeedList.setModel(new javax.swing.AbstractListModel<String>() {
             @Override
             public int getSize() { return items.length; }
             @Override
@@ -226,10 +226,10 @@ public final class InventoryFood extends javax.swing.JFrame {
     private javax.swing.JLabel BoostValue;
     private javax.swing.JLabel Cost;
     private javax.swing.JLabel CostValue;
-    private javax.swing.JLabel FoodImage;
-    private javax.swing.JList<String> foodList;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel Feed;
+    private javax.swing.JLabel FeedImage;
+    private javax.swing.JList<String> FeedList;
+    private javax.swing.JScrollPane FeedPanel;
     private javax.swing.JButton useItem;
     // End of variables declaration//GEN-END:variables
 }

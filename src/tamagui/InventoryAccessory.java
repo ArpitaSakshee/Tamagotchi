@@ -12,15 +12,15 @@ import javax.swing.ImageIcon;
  * @author Maya
  */
 public final class InventoryAccessory extends javax.swing.JFrame {
-    private final InteractionScreen avatarScreen;
+    private final TamaGuiHome home;
     private final Item[] inventory; 
     /**
      * Creates new form AccessoryInventory
-     * @param interactionScreen
+     * @param home
      */
-    public InventoryAccessory(InteractionScreen interactionScreen) {
+    public InventoryAccessory(TamaGuiHome home) {
         initComponents();
-        this.avatarScreen = interactionScreen;
+        this.home = home;
         Item [] items = {
             new Item("Bow",30,0,0),
             new Item("Glasses",50,0,0),
@@ -50,27 +50,28 @@ public final class InventoryAccessory extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
+        Accessory = new javax.swing.JPanel();
+        AccessoryPanel = new javax.swing.JScrollPane();
         AccessoryList = new javax.swing.JList<>();
-        Equip = new javax.swing.JButton();
+        UseItem = new javax.swing.JButton();
         AccessoryImage = new javax.swing.JLabel();
         Cost = new javax.swing.JLabel();
         CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Accessories");
+        setTitle("Equip Accessory");
 
         AccessoryList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 AccessoryListValueChanged(evt);
             }
         });
-        jScrollPane1.setViewportView(AccessoryList);
+        AccessoryPanel.setViewportView(AccessoryList);
 
-        Equip.setText("Equip");
-        Equip.addActionListener(new java.awt.event.ActionListener() {
+        UseItem.setText("Equip");
+        UseItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                EquipActionPerformed(evt);
+                UseItemActionPerformed(evt);
             }
         });
 
@@ -78,91 +79,68 @@ public final class InventoryAccessory extends javax.swing.JFrame {
 
         CostValue.setText("00");
 
+        javax.swing.GroupLayout AccessoryLayout = new javax.swing.GroupLayout(Accessory);
+        Accessory.setLayout(AccessoryLayout);
+        AccessoryLayout.setHorizontalGroup(
+            AccessoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AccessoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(AccessoryPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(AccessoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AccessoryLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AccessoryLayout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addGroup(AccessoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(AccessoryImage, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(AccessoryLayout.createSequentialGroup()
+                                .addComponent(UseItem, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(29, 29, 29)))))
+                .addContainerGap(21, Short.MAX_VALUE))
+        );
+        AccessoryLayout.setVerticalGroup(
+            AccessoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AccessoryLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AccessoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(AccessoryPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AccessoryLayout.createSequentialGroup()
+                        .addComponent(AccessoryImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(32, 32, 32)
+                        .addGroup(AccessoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(CostValue))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(UseItem)))
+                .addGap(18, 18, 18))
+        );
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(AccessoryImage, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(Equip, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(Accessory, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 294, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(38, 38, 38)
-                        .addComponent(AccessoryImage, javax.swing.GroupLayout.PREFERRED_SIZE, 188, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CostValue))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(Equip)))
-                .addGap(26, 26, 26))
+                .addContainerGap()
+                .addComponent(Accessory, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void EquipActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_EquipActionPerformed
-         String accessory = AccessoryList.getSelectedValue();
-        if (accessory == null || accessory.isEmpty()){
-            Error error = new Error();
-            error.SetErrorMsg("Select the accesory for update");
-            error.setVisible(true);
-            return;
-        }
-        // Find item from inventory
-        Item selectedItem = this.inventory[0];
-        boolean found=false;
-        for (Item item : this.inventory) {
-            if (accessory.equals(item.getName())) {
-                selectedItem =  item;
-                found = true;
-            }
-        }
-        if (found == false) {
-            Error error = new Error();
-            error.SetErrorMsg("Could not load inventory");
-            error.setVisible(true);
-            return;
-        }
-        int availablePoints = this.avatarScreen.getPoints();
-        if (availablePoints < selectedItem.getCost()) {
-            Error error = new Error();
-            error.SetErrorMsg("Insufficient points");
-            error.setVisible(true);
-            return;
-        } else {
-            this.avatarScreen.addPoints(-1*selectedItem.getCost());
-        }
-        String avatarName = this.avatarScreen.getAvatarName();
-        String avatarImagePath =  "Images/Avatar/"+ accessory +"/"+avatarName+ ".png"; 
-        System.out.println("Selecting avatar: "+ avatarImagePath);
-        this.avatarScreen.updateAvatar(avatarImagePath, avatarName);
-        this.setVisible(false);
-        this.dispose();
-    }//GEN-LAST:event_EquipActionPerformed
-
     private void AccessoryListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AccessoryListValueChanged
-        String accessory = AccessoryList.getSelectedValue();
+    String accessory = AccessoryList.getSelectedValue();
         String accessoryIconPath = "Images/Accessory/" + accessory + ".png";
-        ImageIcon accessoryIcon = new ImageIcon(new ImageIcon(accessoryIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
+        ImageIcon accessoryIcon = new ImageIcon(new ImageIcon(accessoryIconPath).getImage().getScaledInstance(120, 200, Image.SCALE_DEFAULT));
         AccessoryImage.setIcon(accessoryIcon); 
         AccessoryImage.setVisible(true);
         // Find item from inventory
@@ -185,12 +163,53 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         CostValue.setVisible(true);
     }//GEN-LAST:event_AccessoryListValueChanged
 
+    private void UseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseItemActionPerformed
+        String accessory = AccessoryList.getSelectedValue();
+        if (accessory == null || accessory.isEmpty()){
+            Error error = new Error();
+            error.SetErrorMsg("Select the accesory for update");
+            error.setVisible(true);
+            return;
+        }
+        // Find item from inventory
+        Item selectedItem = this.inventory[0];
+        boolean found=false;
+        for (Item item : this.inventory) {
+            if (accessory.equals(item.getName())) {
+                selectedItem =  item;
+                found = true;
+            }
+        }
+        if (found == false) {
+            Error error = new Error();
+            error.SetErrorMsg("Could not load inventory");
+            error.setVisible(true);
+            return;
+        }
+        int availablePoints = this.home.getPoints();
+        if (availablePoints < selectedItem.getCost()) {
+            Error error = new Error();
+            error.SetErrorMsg("Insufficient points");
+            error.setVisible(true);
+            return;
+        } else {
+            this.home.addPoints(-1*selectedItem.getCost());
+        }
+        String avatarName = this.home.getAvatarName();
+        String avatarImagePath =  "Images/Avatar/"+ accessory +"/"+avatarName+ ".png"; 
+        System.out.println("Selecting avatar: "+ avatarImagePath + " with accessory: "+ accessory);
+        this.home.updateAvatar(avatarImagePath, avatarName);
+        this.setVisible(false);
+        this.dispose();
+    }//GEN-LAST:event_UseItemActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Accessory;
     private javax.swing.JLabel AccessoryImage;
     private javax.swing.JList<String> AccessoryList;
+    private javax.swing.JScrollPane AccessoryPanel;
     private javax.swing.JLabel Cost;
     private javax.swing.JLabel CostValue;
-    private javax.swing.JButton Equip;
-    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JButton UseItem;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,15 +12,15 @@ import javax.swing.ImageIcon;
  * @author Arpita Sakshee
  */
 public final class InventoryAvatar extends javax.swing.JFrame {
-    private final InteractionScreen avatarScreen;
+    private final TamaGuiHome home;
     private final Item[] inventory; 
     /**
      * Creates new form InventoryAvatar
-     * @param interactionScreen
+     * @param home
      */
-    public InventoryAvatar(InteractionScreen interactionScreen) {
+    public InventoryAvatar(TamaGuiHome home) {
         initComponents();
-        this.avatarScreen = interactionScreen;
+        this.home = home;
           Item [] items = {
             new Item("Crocodile",30,0,0),
             new Item("Dog",30,0,0),
@@ -52,8 +52,8 @@ public final class InventoryAvatar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
+        Avatar = new javax.swing.JPanel();
+        AvatarPanel = new javax.swing.JScrollPane();
         AvatarList = new javax.swing.JList<>();
         SelectAvatar = new javax.swing.JButton();
         AvatarImage = new javax.swing.JLabel();
@@ -61,14 +61,14 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Toys");
+        setTitle("Change Avatar");
 
         AvatarList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
                 AvatarListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(AvatarList);
+        AvatarPanel.setViewportView(AvatarList);
 
         SelectAvatar.setText("Select Avatar");
         SelectAvatar.addActionListener(new java.awt.event.ActionListener() {
@@ -81,58 +81,56 @@ public final class InventoryAvatar extends javax.swing.JFrame {
 
         CostValue.setText("00");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        javax.swing.GroupLayout AvatarLayout = new javax.swing.GroupLayout(Avatar);
+        Avatar.setLayout(AvatarLayout);
+        AvatarLayout.setHorizontalGroup(
+            AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AvatarLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                .addComponent(AvatarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(AvatarLayout.createSequentialGroup()
+                        .addGap(29, 29, 29)
+                        .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28)
-                        .addComponent(SelectAvatar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(AvatarLayout.createSequentialGroup()
                         .addGap(18, 18, 18)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(6, 6, 6)
-                                .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addGroup(AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(SelectAvatar)
+                            .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 170, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+        AvatarLayout.setVerticalGroup(
+            AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, AvatarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(AvatarPanel, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 297, Short.MAX_VALUE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, AvatarLayout.createSequentialGroup()
+                        .addComponent(AvatarImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(32, 32, 32)
+                        .addGroup(AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(CostValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addGap(12, 12, 12)
-                        .addComponent(SelectAvatar))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 15, Short.MAX_VALUE))
+                            .addComponent(CostValue))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(SelectAvatar)))
+                .addGap(18, 18, 18))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(Avatar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap()
+                .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -162,18 +160,18 @@ public final class InventoryAvatar extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         }
-        int availablePoints = this.avatarScreen.getPoints();
+        int availablePoints = this.home.getPoints();
         if (availablePoints < selectedItem.getCost()) {
             Error error = new Error();
             error.SetErrorMsg("Insufficient points");
             error.setVisible(true);
             return;
         } else {
-            this.avatarScreen.addPoints(-1*selectedItem.getCost());
+            this.home.addPoints(-1*selectedItem.getCost());
         }
-        String avatarImagePath =  "Images/Avatar/"+ avatarName+ ".png"; 
+        String avatarImagePath =  "Images/Avatar/"+ avatarName+ ".png";
         System.out.println("Selecting avatar: "+ avatarImagePath);
-        this.avatarScreen.updateAvatar(avatarImagePath, avatarName);
+        this.home.updateAvatar(avatarImagePath, avatarName);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_SelectAvatarActionPerformed
@@ -181,8 +179,8 @@ public final class InventoryAvatar extends javax.swing.JFrame {
     private void AvatarListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_AvatarListValueChanged
         String avatar = AvatarList.getSelectedValue();
         String avatarIconPath = "Images/Avatar/" + avatar + ".png";
-        ImageIcon avatarIcon = new ImageIcon(new ImageIcon(avatarIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
-        AvatarImage.setIcon(avatarIcon); 
+        ImageIcon avatarIcon = new ImageIcon(new ImageIcon(avatarIconPath).getImage().getScaledInstance(120, 200, Image.SCALE_DEFAULT));
+        AvatarImage.setIcon(avatarIcon);
         AvatarImage.setVisible(true);
         // Find item from inventory
         Item selectedItem = this.inventory[0];
@@ -205,12 +203,12 @@ public final class InventoryAvatar extends javax.swing.JFrame {
     }//GEN-LAST:event_AvatarListValueChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel Avatar;
     private javax.swing.JLabel AvatarImage;
     private javax.swing.JList<String> AvatarList;
+    private javax.swing.JScrollPane AvatarPanel;
     private javax.swing.JLabel Cost;
     private javax.swing.JLabel CostValue;
     private javax.swing.JButton SelectAvatar;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
     // End of variables declaration//GEN-END:variables
 }

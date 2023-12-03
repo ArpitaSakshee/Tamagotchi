@@ -4,6 +4,7 @@
  */
 package tamagui;
 
+import java.awt.BorderLayout;
 import java.awt.Image;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -16,7 +17,9 @@ import javax.swing.ImageIcon;
  * @author Maya
  */
 public class InteractionScreen extends javax.swing.JFrame {
-     private final TamaGuiHome home;
+    private final TamaGuiHome home;
+    private final StatScreen statsScreen;
+    private int minuteTicks;
 
     /**
      * Creates new form InteractionScreen
@@ -25,26 +28,43 @@ public class InteractionScreen extends javax.swing.JFrame {
     public InteractionScreen(TamaGuiHome tamaGuiHome) {
         initComponents();
         this.home = tamaGuiHome;
-        String avatar = home.getAvatar();
+        String avatar = home.getAvatarName();
         String avatarPath =  "Images/Avatar/"+ avatar+ ".png"; 
         ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarPath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
         Interactfriend.setIcon(iconLogo);
         
+        statsScreen = new StatScreen(); // Initialize the instance
+        StatScreenPanel.setLayout(new BorderLayout()); // Set layout manager for StatScreenPanel
+        StatScreenPanel.add(statsScreen.getContentPane(), BorderLayout.CENTER); // Add StatScreen to StatScreenPanel
+        this.setTitle(avatar);
         ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor(); 
         executor.scheduleAtFixedRate(() -> {
-            int health= (3*home.getFullness()+2*home.getEntertained() + home.getHappiness())/6;
-            HealthBar.setValue(health);  
-            if (health > 75) {
-                healthIndicatorLabel.setText("Healthy");
-            } else if (health > 50) {
-                healthIndicatorLabel.setText("Weak");
-            }else if (health >0 ){
-                healthIndicatorLabel.setText("Sick");
-            } else{
-                healthIndicatorLabel.setText("Dead");
+            // Your task that needs to run every minute
+            System.out.println("Application is running at " + new java.util.Date());
+            this.updateHappiness(-1);
+            this.updateFullness(-1);
+            this.updateEntertained(-1);
+            this.minuteTicks++;
+            if (this.minuteTicks%60 == 0) {
+                System.out.println("Decrement Happines at " + new java.util.Date());
+                this.updateHappiness(-1);
+
+            } else if (this.minuteTicks%10 == 0) {
+                System.out.println("Decrement Fullness at  " + new java.util.Date());
+                this.updateFullness(-1);
+            } else if (this.minuteTicks%5 == 0) {
+               System.out.println("Decrement Entertained at " + new java.util.Date());
+               this.updateEntertained(-1);
             }
-            
-        }, 0, 1, TimeUnit.SECONDS); 
+            //reset timer after 2 hours
+            if (this.minuteTicks > 120){
+                this.minuteTicks = 0;
+            }
+       
+        }, 0, 1, TimeUnit.SECONDS);
+        this.updateFullness(100);
+        this.updateEntertained(100);
+        this.updateHappiness(100);
     }
 
     public void updateAvatar(String avatarImagePath, String avatarName){
@@ -56,33 +76,30 @@ public class InteractionScreen extends javax.swing.JFrame {
         }
         ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarImagePath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
         Interactfriend.setIcon(iconLogo);
-        this.home.updateAvatar(avatarImagePath, avatarName);
+        this.setTitle(avatarName);
     }
     
-    public String getAvatarName(){
-        return home.getAvatar();
-    }
-    
-    public int getPoints() {
-        return home.getPoints();
-    }
-    
-    public void addPoints(int points) {
-         home.addPoints(points);
+    private void updateHealth() {
+       int health= (3*statsScreen.getFullness()+2*statsScreen.getEntertained() + statsScreen.getHappiness())/6;
+       this.home.updateHealth(health);
+       this.HealthBar.setValue(health);
+       System.out.println("Updating Health: " + health);
     }
     
     public void updateFullness(int points) {
-         home.updateFullness(points);
+        statsScreen.updateFullness(points);
+        updateHealth();
     }
     
     public void updateEntertained(int points) {
-         home.updateEntertained(points);
+        statsScreen.updateEntertained(points);
+        updateHealth();
     }
     
     public void updateHappiness(int points) {
-         home.updateHappiness(points);
+        statsScreen.updateHappiness(points);
+        updateHealth();
     }
-    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -93,102 +110,16 @@ public class InteractionScreen extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        feedButton = new javax.swing.JButton();
-        toyButton = new javax.swing.JButton();
-        medicateButton = new javax.swing.JButton();
-        playButton = new javax.swing.JButton();
-        Avatar = new javax.swing.JButton();
-        accessorizeButton1 = new javax.swing.JButton();
-        jPanel2 = new javax.swing.JPanel();
+        HealthPanel = new javax.swing.JPanel();
         healthIndicatorLabel = new javax.swing.JLabel();
         healthPointsLabel = new javax.swing.JLabel();
         HealthBar = new javax.swing.JProgressBar();
-        jPanel3 = new javax.swing.JPanel();
+        AvatarPanel = new javax.swing.JPanel();
         Interactfriend = new javax.swing.JLabel();
+        StatScreenPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Avatar");
-
-        feedButton.setText("Feed");
-        feedButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                feedButtonActionPerformed(evt);
-            }
-        });
-
-        toyButton.setText("Toy");
-        toyButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                toyButtonActionPerformed(evt);
-            }
-        });
-
-        medicateButton.setText("Heal");
-        medicateButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                medicateButtonActionPerformed(evt);
-            }
-        });
-
-        playButton.setText("Play");
-        playButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                playButtonActionPerformed(evt);
-            }
-        });
-
-        Avatar.setText("Avatar");
-        Avatar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AvatarActionPerformed(evt);
-            }
-        });
-
-        accessorizeButton1.setText("Accessorize");
-        accessorizeButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                accessorizeButton1ActionPerformed(evt);
-            }
-        });
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(feedButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(toyButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(medicateButton, javax.swing.GroupLayout.PREFERRED_SIZE, 113, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(playButton, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(Avatar, javax.swing.GroupLayout.PREFERRED_SIZE, 106, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(accessorizeButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap())
-        );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(feedButton)
-                    .addComponent(toyButton)
-                    .addComponent(medicateButton))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(playButton)
-                    .addComponent(Avatar)
-                    .addComponent(accessorizeButton1))
-                .addContainerGap(16, Short.MAX_VALUE))
-        );
 
         healthIndicatorLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         healthIndicatorLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
@@ -199,21 +130,27 @@ public class InteractionScreen extends javax.swing.JFrame {
 
         HealthBar.setStringPainted(true);
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addComponent(healthPointsLabel)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 130, Short.MAX_VALUE)
-                .addComponent(healthIndicatorLabel))
-            .addComponent(HealthBar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        javax.swing.GroupLayout HealthPanelLayout = new javax.swing.GroupLayout(HealthPanel);
+        HealthPanel.setLayout(HealthPanelLayout);
+        HealthPanelLayout.setHorizontalGroup(
+            HealthPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HealthPanelLayout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(HealthPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HealthPanelLayout.createSequentialGroup()
+                        .addComponent(HealthBar, javax.swing.GroupLayout.PREFERRED_SIZE, 389, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(31, Short.MAX_VALUE))
+                    .addGroup(HealthPanelLayout.createSequentialGroup()
+                        .addComponent(healthPointsLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(healthIndicatorLabel)
+                        .addGap(39, 39, 39))))
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+        HealthPanelLayout.setVerticalGroup(
+            HealthPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HealthPanelLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(HealthPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(healthPointsLabel)
                     .addComponent(healthIndicatorLabel))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -221,26 +158,37 @@ public class InteractionScreen extends javax.swing.JFrame {
                 .addGap(29, 29, 29))
         );
 
-        jPanel3.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel3.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        AvatarPanel.setBackground(new java.awt.Color(255, 255, 255));
+        AvatarPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
 
         Interactfriend.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
 
-        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
-        jPanel3.setLayout(jPanel3Layout);
-        jPanel3Layout.setHorizontalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(35, 35, 35)
-                .addComponent(Interactfriend, javax.swing.GroupLayout.PREFERRED_SIZE, 282, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(35, Short.MAX_VALUE))
+        javax.swing.GroupLayout AvatarPanelLayout = new javax.swing.GroupLayout(AvatarPanel);
+        AvatarPanel.setLayout(AvatarPanelLayout);
+        AvatarPanelLayout.setHorizontalGroup(
+            AvatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AvatarPanelLayout.createSequentialGroup()
+                .addGap(29, 29, 29)
+                .addComponent(Interactfriend, javax.swing.GroupLayout.PREFERRED_SIZE, 335, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(26, Short.MAX_VALUE))
         );
-        jPanel3Layout.setVerticalGroup(
-            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Interactfriend, javax.swing.GroupLayout.DEFAULT_SIZE, 289, Short.MAX_VALUE)
-                .addContainerGap())
+        AvatarPanelLayout.setVerticalGroup(
+            AvatarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(AvatarPanelLayout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(Interactfriend, javax.swing.GroupLayout.PREFERRED_SIZE, 327, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(18, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout StatScreenPanelLayout = new javax.swing.GroupLayout(StatScreenPanel);
+        StatScreenPanel.setLayout(StatScreenPanelLayout);
+        StatScreenPanelLayout.setHorizontalGroup(
+            StatScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        StatScreenPanelLayout.setVerticalGroup(
+            StatScreenPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 207, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -248,66 +196,38 @@ public class InteractionScreen extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(HealthPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(11, 11, 11)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(AvatarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(StatScreenPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(20, Short.MAX_VALUE))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(26, 26, 26)
+                .addComponent(HealthPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(AvatarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(35, 35, 35)
+                .addComponent(StatScreenPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(53, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void feedButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_feedButtonActionPerformed
-        new InventoryFood(this).setVisible(true);
-    }//GEN-LAST:event_feedButtonActionPerformed
-
-    private void toyButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_toyButtonActionPerformed
-        new InventoryToy(this).setVisible(true);
-    }//GEN-LAST:event_toyButtonActionPerformed
-
-    private void medicateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_medicateButtonActionPerformed
-        new InventoryHeal(this).setVisible(true);
-    }//GEN-LAST:event_medicateButtonActionPerformed
-
-    private void playButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_playButtonActionPerformed
-        new Play(this).setVisible(true);
-    }//GEN-LAST:event_playButtonActionPerformed
-
-    private void AvatarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AvatarActionPerformed
-        new InventoryAvatar(this).setVisible(true);
-    }//GEN-LAST:event_AvatarActionPerformed
-
-    private void accessorizeButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_accessorizeButton1ActionPerformed
-        new InventoryAccessory(this).setVisible(true);
-    }//GEN-LAST:event_accessorizeButton1ActionPerformed
-
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Avatar;
+    private javax.swing.JPanel AvatarPanel;
     private javax.swing.JProgressBar HealthBar;
+    private javax.swing.JPanel HealthPanel;
     private javax.swing.JLabel Interactfriend;
-    private javax.swing.JButton accessorizeButton1;
-    private javax.swing.JButton feedButton;
+    private javax.swing.JPanel StatScreenPanel;
     private javax.swing.JLabel healthIndicatorLabel;
     private javax.swing.JLabel healthPointsLabel;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JButton medicateButton;
-    private javax.swing.JButton playButton;
-    private javax.swing.JButton toyButton;
     // End of variables declaration//GEN-END:variables
 }

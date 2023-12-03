@@ -12,16 +12,16 @@ import javax.swing.ImageIcon;
  * @author Maya
  */
 public final class InventoryHeal extends javax.swing.JFrame {
-     private final InteractionScreen avatarScreen;
+     private final TamaGuiHome home;
      private final Item[] inventory; 
 
     /**
      * Creates new form MedicineInventory
-     * @param interactionScreen
+     * @param home
      */
-    public InventoryHeal(InteractionScreen interactionScreen) {
+    public InventoryHeal(TamaGuiHome home) {
         initComponents();
-        this.avatarScreen = interactionScreen;
+        this.home = home;
         Item [] items = {
             new Item("Mint",15,15,0),
             new Item("Lavender",25,25,0),
@@ -39,7 +39,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
 
     public void addHeal(Item[] items){
 
-       medicineList.setModel(new javax.swing.AbstractListModel<String>() {
+       HealList.setModel(new javax.swing.AbstractListModel<String>() {
             @Override
             public int getSize() { return items.length; }
             @Override
@@ -55,112 +55,140 @@ public final class InventoryHeal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        medicineList = new javax.swing.JList<>();
+        Heal = new javax.swing.JPanel();
+        HealPanel = new javax.swing.JScrollPane();
+        HealList = new javax.swing.JList<>();
         useItem = new javax.swing.JButton();
-        MedicineImage = new javax.swing.JLabel();
-        BoostName = new javax.swing.JLabel();
-        BoostValue = new javax.swing.JLabel();
+        HealImage = new javax.swing.JLabel();
         Cost = new javax.swing.JLabel();
         CostValue = new javax.swing.JLabel();
+        BoostName = new javax.swing.JLabel();
+        BoostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Medicine");
+        setTitle("Heal Avatar");
 
-        medicineList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+        HealList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
-                medicineListValueChanged(evt);
+                HealListValueChanged(evt);
             }
         });
-        jScrollPane2.setViewportView(medicineList);
+        HealPanel.setViewportView(HealList);
 
-        useItem.setText("Use item");
+        useItem.setText("Use Item");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);
             }
         });
 
-        BoostName.setText("Happiness:");
-
-        BoostValue.setText("00");
-
         Cost.setText("Cost:");
 
+        CostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         CostValue.setText("00");
 
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(9, 9, 9)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 118, javax.swing.GroupLayout.PREFERRED_SIZE)
+        BoostName.setText("Happiness:");
+
+        BoostValue.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BoostValue.setText("00");
+
+        javax.swing.GroupLayout HealLayout = new javax.swing.GroupLayout(Heal);
+        Heal.setLayout(HealLayout);
+        HealLayout.setHorizontalGroup(
+            HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(HealLayout.createSequentialGroup()
+                .addGap(15, 15, 15)
+                .addComponent(HealPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 149, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(MedicineImage, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 72, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(18, 18, 18)
-                                .addComponent(BoostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel1Layout.createSequentialGroup()
-                                    .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addComponent(useItem)))
-                        .addGap(0, 0, Short.MAX_VALUE)))
-                .addContainerGap())
+                .addGroup(HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(HealLayout.createSequentialGroup()
+                        .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(BoostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(HealImage, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(useItem, javax.swing.GroupLayout.PREFERRED_SIZE, 117, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(HealLayout.createSequentialGroup()
+                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGap(45, 45, 45)
+                            .addComponent(CostValue, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 251, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE, false)
+        HealLayout.setVerticalGroup(
+            HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, HealLayout.createSequentialGroup()
+                .addGroup(HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(HealPanel)
+                    .addGroup(HealLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(HealImage, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(BoostValue))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(MedicineImage, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(3, 3, 3)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(Cost, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(HealLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(Cost)
                             .addComponent(CostValue, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(useItem)))
-                .addGap(0, 15, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Heal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(22, 22, 22)
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap()
+                .addComponent(Heal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void HealListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_HealListValueChanged
+        String heal = HealList.getSelectedValue();
+        String healIconPath = "Images/Heal/" + heal + ".png";
+        ImageIcon healIcon = new ImageIcon(new ImageIcon(healIconPath).getImage().getScaledInstance(120, 200, Image.SCALE_DEFAULT));
+        HealImage.setIcon(healIcon); 
+        HealImage.setVisible(true);
+        // Find item from inventory
+        Item selectedItem = this.inventory[0];
+        boolean found=false;
+        for (Item item : this.inventory) {
+            if (heal.equals(item.getName())) {
+                selectedItem =  item;
+                found = true;
+            }
+        }
+        if (found == false) {
+            Error error = new Error();
+            error.SetErrorMsg("Could not load inventory");
+            error.setVisible(true);
+            return;
+        }
+        CostValue.setText(String.valueOf(selectedItem.getCost()));
+        BoostValue.setText("+"+String.valueOf(selectedItem.getBoost_1()));
+        BoostName.setVisible(true);
+        BoostValue.setVisible(true);
+        Cost.setVisible(true);
+        CostValue.setVisible(true);
+    }//GEN-LAST:event_HealListValueChanged
+
     private void useItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_useItemActionPerformed
-        String heal = medicineList.getSelectedValue();
+      String heal = HealList.getSelectedValue();
         if (heal == null || heal.isEmpty()){
             Error error = new Error();
             error.SetErrorMsg("Select the heal for update");
             error.setVisible(true);
             return;
         }
-        int availablePoints = this.avatarScreen.getPoints();
+        int availablePoints = this.home.getPoints();
         // Find item from inventory
         Item selectedItem = this.inventory[0];
         boolean found=false;
@@ -182,41 +210,12 @@ public final class InventoryHeal extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         } else {
-            this.avatarScreen.addPoints(-1*selectedItem.getCost());
+            this.home.addPoints(-1*selectedItem.getCost());
         }
-        this.avatarScreen.updateHappiness(selectedItem.getBoost_1());
+        this.home.updateHappiness(selectedItem.getBoost_1());
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_useItemActionPerformed
-
-    private void medicineListValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_medicineListValueChanged
-        String heal = medicineList.getSelectedValue();
-        String healIconPath = "Images/Heal/" + heal + ".png";
-        ImageIcon healIcon = new ImageIcon(new ImageIcon(healIconPath).getImage().getScaledInstance(100, 150, Image.SCALE_DEFAULT));
-        MedicineImage.setIcon(healIcon); 
-        MedicineImage.setVisible(true);
-        // Find item from inventory
-        Item selectedItem = this.inventory[0];
-        boolean found=false;
-        for (Item item : this.inventory) {
-            if (heal.equals(item.getName())) {
-                selectedItem =  item;
-                found = true;
-            }
-        }
-        if (found == false) {
-            Error error = new Error();
-            error.SetErrorMsg("Could not load inventory");
-            error.setVisible(true);
-            return;
-        }
-        CostValue.setText(String.valueOf(selectedItem.getCost()));
-        BoostValue.setText(String.valueOf(selectedItem.getBoost_1()));
-        BoostName.setVisible(true);
-        BoostValue.setVisible(true);
-        Cost.setVisible(true);
-        CostValue.setVisible(true);
-    }//GEN-LAST:event_medicineListValueChanged
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -224,10 +223,10 @@ public final class InventoryHeal extends javax.swing.JFrame {
     private javax.swing.JLabel BoostValue;
     private javax.swing.JLabel Cost;
     private javax.swing.JLabel CostValue;
-    private javax.swing.JLabel MedicineImage;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JList<String> medicineList;
+    private javax.swing.JPanel Heal;
+    private javax.swing.JLabel HealImage;
+    private javax.swing.JList<String> HealList;
+    private javax.swing.JScrollPane HealPanel;
     private javax.swing.JButton useItem;
     // End of variables declaration//GEN-END:variables
 }

@@ -65,7 +65,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="ErrorReturn">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Return"/>
+        <Property name="text" type="java.lang.String" value="OK"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ErrorReturnActionPerformed"/>

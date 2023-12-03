@@ -36,7 +36,7 @@ public class Error extends javax.swing.JFrame {
         ErrorLabel.setText("Please fill all required fields");
         ErrorLabel.setMaximumSize(new java.awt.Dimension(300, 17));
 
-        ErrorReturn.setText("Return");
+        ErrorReturn.setText("OK");
         ErrorReturn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ErrorReturnActionPerformed(evt);
@@ -71,7 +71,6 @@ public class Error extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void ErrorReturnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ErrorReturnActionPerformed
-
         this.dispose();
     }//GEN-LAST:event_ErrorReturnActionPerformed
 

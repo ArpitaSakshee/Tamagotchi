@@ -11,14 +11,15 @@ import java.util.Random;
  * @author Arpita Sakshee
  */
 public class Play extends javax.swing.JFrame {
-     private final InteractionScreen avatarScreen;
+     private final TamaGuiHome home;
 
     /**
      * Creates new form Play
+     * @param home
      */
-    public Play(InteractionScreen interactionScreen) {
+    public Play(TamaGuiHome home) {
         initComponents();
-        this.avatarScreen=interactionScreen;
+        this.home=home;
     }
 
     /**
@@ -30,44 +31,81 @@ public class Play extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        PlayGame = new javax.swing.JLabel();
+        PlayInfo = new javax.swing.JScrollPane();
+        PlayInfoText = new javax.swing.JTextArea();
+        jPanel1 = new javax.swing.JPanel();
+        Guess = new javax.swing.JButton();
+        PlayChoice = new javax.swing.JComboBox<>();
         jLabel1 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
+        BoostName = new javax.swing.JLabel();
+        BoostName1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("Play");
 
-        jLabel1.setText("Guess the number");
+        PlayGame.setText("Guess the number");
 
-        jButton1.setText("Play");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        PlayInfoText.setEditable(false);
+        PlayInfoText.setColumns(20);
+        PlayInfoText.setLineWrap(true);
+        PlayInfoText.setRows(5);
+        PlayInfoText.setText("Your little friend will give you a random number between 1-9. Your goal is to guess whether the next number it thinks of will be higher or lower than the 5. Note that it cannot pick a number higher than 9, or lower than 1.");
+        PlayInfoText.setWrapStyleWord(true);
+        PlayInfo.setViewportView(PlayInfoText);
+
+        Guess.setText("Guess");
+        Guess.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                GuessActionPerformed(evt);
             }
         });
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setLineWrap(true);
-        jTextArea2.setRows(5);
-        jTextArea2.setText("Your little friend will give you a random number between 1-9. Your goal is to guess whether the next number it thinks of will be higher or lower than the 5. Note that it cannot pick a number higher than 9, or lower than 1.");
-        jTextArea2.setWrapStyleWord(true);
-        jScrollPane3.setViewportView(jTextArea2);
-
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Higher", "Lower" }));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        PlayChoice.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Higher", "Lower" }));
+        PlayChoice.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                PlayChoiceActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Cost: 50 ");
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Cost: 50");
 
-        jLabel3.setText("Reward- Happiness: 30 Entertainment: 10");
+        BoostName.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BoostName.setText("Happiness:  +30");
+
+        BoostName1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        BoostName1.setText("Entertained:  +10");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(43, 43, 43)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(BoostName1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(Guess, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(PlayChoice, 0, 162, Short.MAX_VALUE)
+                    .addComponent(BoostName, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(24, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(PlayChoice)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(BoostName, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(BoostName1, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(12, 12, 12)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(Guess)
+                .addGap(12, 12, 12))
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -77,51 +115,36 @@ public class Play extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addGap(67, 67, 67)
-                        .addComponent(jLabel1))
+                        .addComponent(PlayGame))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 162, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(98, 98, 98)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jButton1)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 61, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 30, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
-                    .addComponent(jLabel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(24, 24, 24))
+                        .addGap(31, 31, 31)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(PlayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(23, 23, 23)
-                .addComponent(jLabel1)
+                .addComponent(PlayGame)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(32, 32, 32)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(PlayInfo, javax.swing.GroupLayout.PREFERRED_SIZE, 152, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addGap(27, 27, 27)
-                .addComponent(jButton1)
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
+    private void PlayChoiceActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PlayChoiceActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jComboBox1ActionPerformed
+    }//GEN-LAST:event_PlayChoiceActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void GuessActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_GuessActionPerformed
         // TODO add your handling code here:
-        int availablePoints = this.avatarScreen.getPoints();
+         int availablePoints = this.home.getPoints();
       
         if (availablePoints < 50) {
             Error error = new Error();
@@ -129,32 +152,34 @@ public class Play extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         } else {
-            this.avatarScreen.addPoints(-50);
+            this.home.addPoints(-50);
         }
         
         Random rand = new Random();
         int guess = rand.nextInt(8)+1; // Random 0-8 +1
         Error error = new Error();
-        String userGuess= jComboBox1.getSelectedItem().toString();
+        String userGuess= PlayChoice.getSelectedItem().toString();
         if (("Higher".equals(userGuess)  && guess >5) ||
              ("Lower".equals(userGuess)  && guess <5)) {
             error.SetErrorMsg("Avatar Guess " + guess + ". You WON.");
         } else {
             error.SetErrorMsg("Avatar Guess " + guess + ". You Loss.");
         }
-        this.avatarScreen.updateHappiness(30);
-        this.avatarScreen.updateEntertained(10);
+        this.home.updateHappiness(30);
+        this.home.updateEntertained(10);
         error.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_GuessActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JLabel BoostName;
+    private javax.swing.JLabel BoostName1;
+    private javax.swing.JButton Guess;
+    private javax.swing.JComboBox<String> PlayChoice;
+    private javax.swing.JLabel PlayGame;
+    private javax.swing.JScrollPane PlayInfo;
+    private javax.swing.JTextArea PlayInfoText;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JPanel jPanel1;
     // End of variables declaration//GEN-END:variables
 }
