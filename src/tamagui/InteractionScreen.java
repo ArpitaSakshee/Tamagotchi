@@ -59,7 +59,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
                 this.minuteTicks = 0;
             }
        
-        }, 0, 1, TimeUnit.SECONDS);
+        }, 0, 1, TimeUnit.MINUTES);
         this.updateFullness(100);
         this.updateEntertained(100);
         this.updateHappiness(100);
