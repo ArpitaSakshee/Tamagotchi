@@ -24,8 +24,8 @@ public final class InventoryFood extends javax.swing.JFrame {
         Item [] items = {
             new Item("Peppermint",1,2,0),
             new Item("Lollipop",3,5,0),
-            new Item("Chocolate",7,11,0),
             new Item("Toffee",5,8,0),
+            new Item("Chocolate",7,11,0),
             new Item("Donut",9,15,0),
             };
         this.inventory = items;
