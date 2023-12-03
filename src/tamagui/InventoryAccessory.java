@@ -165,7 +165,6 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         CostValue.setText(String.valueOf(selectedItem.getCost()));
         Cost.setVisible(true);
         CostValue.setVisible(true);
-        home.setAccessory(accessory);
     }//GEN-LAST:event_AccessoryListValueChanged
 
     private void UseItemActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UseItemActionPerformed
@@ -205,6 +204,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         String avatarImagePath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png";
         System.out.println("Selecting avatar: "+ avatarImagePath + " with accessory: "+ accessory);
         this.home.updateAvatar(avatarImagePath, avatar);
+        home.setAccessory(accessory);
         this.setVisible(false);
         this.dispose();
     }//GEN-LAST:event_UseItemActionPerformed
