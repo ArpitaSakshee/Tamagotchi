@@ -66,7 +66,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         BoostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Avatar's Toys");
+        setTitle("TaskFriend Toy's");
 
         ToyList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -76,7 +76,7 @@ public final class InventoryToy extends javax.swing.JFrame {
         ToyPanel.setViewportView(ToyList);
 
         useItem.setText("Use item");
-        useItem.setToolTipText("Play with toy to increase avatar happiness.");
+        useItem.setToolTipText("Play with toy to increase TaskFriend happiness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);

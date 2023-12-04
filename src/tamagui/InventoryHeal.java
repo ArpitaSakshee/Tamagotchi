@@ -66,7 +66,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
         BoostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Heal Avatar");
+        setTitle("TaskFriend Heal's");
 
         HealList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -76,7 +76,7 @@ public final class InventoryHeal extends javax.swing.JFrame {
         HealPanel.setViewportView(HealList);
 
         useItem.setText("Use Item");
-        useItem.setToolTipText("Heal your avatar to increase his wellness.");
+        useItem.setToolTipText("Heal your TaskFriend to increase his wellness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);

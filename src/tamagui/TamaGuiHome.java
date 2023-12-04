@@ -370,7 +370,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
             }
         });
 
-        AvatarButton.setText("Avatar");
+        AvatarButton.setText("Task Friend");
         AvatarButton.setToolTipText("Change avatar.");
         AvatarButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

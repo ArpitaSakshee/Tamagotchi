@@ -56,7 +56,7 @@ public final class InventoryFood extends javax.swing.JFrame {
         BoostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Feed Avatar");
+        setTitle("TaskFriend Feed's");
 
         FeedList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -66,7 +66,7 @@ public final class InventoryFood extends javax.swing.JFrame {
         FeedPanel.setViewportView(FeedList);
 
         useItem.setText("Use Item");
-        useItem.setToolTipText("Feed your avatar to increase his fullness.");
+        useItem.setToolTipText("Feed your TaskFriend to increase his fullness.");
         useItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 useItemActionPerformed(evt);

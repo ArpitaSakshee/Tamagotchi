@@ -437,7 +437,7 @@
         </Component>
         <Component class="javax.swing.JButton" name="AvatarButton">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Avatar"/>
+            <Property name="text" type="java.lang.String" value="Task Friend"/>
             <Property name="toolTipText" type="java.lang.String" value="Change avatar."/>
           </Properties>
           <Events>

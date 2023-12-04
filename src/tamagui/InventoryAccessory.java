@@ -60,7 +60,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Equip Accessory");
+        setTitle("TaskFriend Accessory");
 
         AccessoryList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -70,7 +70,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         AccessoryPanel.setViewportView(AccessoryList);
 
         UseItem.setText("Equip");
-        UseItem.setToolTipText("Dress your avatar with the selected accessory.");
+        UseItem.setToolTipText("Dress your TaskFriend with the selected accessory.");
         UseItem.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UseItemActionPerformed(evt);

@@ -61,7 +61,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("Change Avatar");
+        setTitle("Change TaskFriend");
 
         AvatarList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
@@ -70,8 +70,8 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         });
         AvatarPanel.setViewportView(AvatarList);
 
-        SelectAvatar.setText("Select Avatar");
-        SelectAvatar.setToolTipText("Select avatar to change.");
+        SelectAvatar.setText("Select TaskFriend");
+        SelectAvatar.setToolTipText("Select Task Friend to change.");
         SelectAvatar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SelectAvatarActionPerformed(evt);
@@ -100,7 +100,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
                         .addGroup(AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(SelectAvatar)
                             .addComponent(AvatarImage, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(17, Short.MAX_VALUE))
+                .addContainerGap(13, Short.MAX_VALUE))
         );
         AvatarLayout.setVerticalGroup(
             AvatarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
