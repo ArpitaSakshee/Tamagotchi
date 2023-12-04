@@ -141,6 +141,7 @@ public final class InteractionScreen extends javax.swing.JFrame {
         healthIndicatorLabel.setFont(new java.awt.Font("Helvetica Neue", 0, 18)); // NOI18N
         healthIndicatorLabel.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         healthIndicatorLabel.setText("Healthy");
+        healthIndicatorLabel.setToolTipText("Healthy >75, 50 < Sick <75, 0<Weak < 50, Death == 0");
 
         healthPointsLabel.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         healthPointsLabel.setText("Health Points:");

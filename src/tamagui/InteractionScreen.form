@@ -99,6 +99,7 @@
             </Property>
             <Property name="horizontalAlignment" type="int" value="4"/>
             <Property name="text" type="java.lang.String" value="Healthy"/>
+            <Property name="toolTipText" type="java.lang.String" value="Healthy &gt;75, 50 &lt; Sick &lt;75, 0&lt;Weak &lt; 50, Death == 0"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="healthPointsLabel">
