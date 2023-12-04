@@ -60,7 +60,7 @@ public final class InventoryAccessory extends javax.swing.JFrame {
         CostValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("TaskFriend Accessory");
+        setTitle("TaskFriend Accessory's");
 
         AccessoryList.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
             public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
