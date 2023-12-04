@@ -146,6 +146,13 @@ public final class InventoryAvatar extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         }
+         String curAvatarName = this.home.getAvatarName();
+        if (curAvatarName.equals(avatarName)){
+            Error error = new Error();
+            error.SetErrorMsg("Select different TaskFriend then current");
+            error.setVisible(true);
+            return;
+        }
         // Find item from inventory
         Item selectedItem = this.inventory[0];
         boolean found=false;
