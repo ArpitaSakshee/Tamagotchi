@@ -170,13 +170,12 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         } else {
             this.home.addPoints(-1*selectedItem.getCost());
         }
-        String avatar = home.getAvatarName();
         String health = home.getHealth();
         String accessory = home.getAccessory();
-        String avatarImagePath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatar+ ".png"; 
-        System.out.println("Selecting avatar: "+ avatarImagePath);
+        String avatarImagePath =  "Images/Avatar/"+ health + "/"+ accessory+"/" +avatarName+ ".png"; 
         this.home.updateAvatar(avatarImagePath, avatarName);
         this.setVisible(false);
+        System.out.println("Selecting avatar: "+ avatarImagePath);
         this.dispose();
     }//GEN-LAST:event_SelectAvatarActionPerformed
 

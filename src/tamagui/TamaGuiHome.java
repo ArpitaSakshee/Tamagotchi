@@ -37,7 +37,7 @@ public final class TamaGuiHome extends javax.swing.JFrame {
         this.addTask(new Task("Task 3","Easy","01/01/2024", "23:09"));
         
         //set up avatar
-        String [] avatars = {"Ozzo", "Shey", "Milo", "Pentunia", "Tee"};
+        String [] avatars = {"Ozzo", "Shey", "Milo", "Petunia", "Tee"};
         Random rand = new Random();
         this.avatar = avatars[rand.nextInt(avatars.length)];
         String avatarPath =  "Images/Avatar/"+ this.health + "/"+ this.accessory+"/" +avatar+ ".png"; 
