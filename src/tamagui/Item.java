@@ -5,8 +5,11 @@
 package tamagui;
 
 /**
- *
- * @author arpita
+ * Authors/Contributors in alphabetical order.
+ * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public class Item {
     private final String name;

@@ -10,8 +10,11 @@ import javax.swing.ImageIcon;
 
 
 /**
- *
- * @author Christian
+ * Authors/Contributors in alphabetical order.
+ * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public final class TamaGuiHome extends javax.swing.JFrame {
  

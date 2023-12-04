@@ -8,8 +8,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- *
+ * Authors/Contributors in alphabetical order.
  * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public final class InventoryAvatar extends javax.swing.JFrame {
     private final TamaGuiHome home;
@@ -146,7 +149,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
             error.setVisible(true);
             return;
         }
-         String curAvatarName = this.home.getAvatarName();
+        String curAvatarName = this.home.getAvatarName();
         if (curAvatarName.equals(avatarName)){
             Error error = new Error();
             error.SetErrorMsg("Select different TaskFriend then current");

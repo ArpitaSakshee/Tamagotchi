@@ -8,8 +8,11 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author Maya
+ * Authors/Contributors in alphabetical order.
+ * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public final class InventoryHeal extends javax.swing.JFrame {
      private final TamaGuiHome home;

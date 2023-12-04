@@ -8,8 +8,11 @@ import java.util.ArrayList;
 import javax.swing.AbstractListModel;
 
 /**
- *
+ * Authors/Contributors in alphabetical order.
  * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 
 public class ToDoList extends AbstractListModel<String> {

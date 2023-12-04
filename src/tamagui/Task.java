@@ -5,8 +5,11 @@
 package tamagui;
 
 /**
- *
+ * Authors/Contributors in alphabetical order.
  * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public class Task {
     private final String taskName;

@@ -11,9 +11,13 @@ import javax.swing.AbstractButton;
 
 
 /**
- *
- * @author Christian
+ * Authors/Contributors in alphabetical order.
+ * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
+
 public class addTask extends javax.swing.JFrame {
     private String taskName;
     private String difficulty;

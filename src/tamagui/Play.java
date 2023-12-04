@@ -7,8 +7,11 @@ package tamagui;
 import java.util.Random;
 
 /**
- *
+ * Authors/Contributors in alphabetical order.
  * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public class Play extends javax.swing.JFrame {
      private final TamaGuiHome home;

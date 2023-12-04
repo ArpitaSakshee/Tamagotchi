@@ -13,8 +13,11 @@ import java.util.concurrent.TimeUnit;
 import javax.swing.ImageIcon;
 
 /**
- *
- * @author Maya
+ * Authors/Contributors in alphabetical order.
+ * @author Arpita Sakshee
+ * @author Christian Villanueva
+ * @author Katrina Mai
+ * @author Maya Louise Dagdag
  */
 public final class InteractionScreen extends javax.swing.JFrame {
     private final TamaGuiHome home;
