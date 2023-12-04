@@ -168,6 +168,7 @@ public class Play extends javax.swing.JFrame {
         this.home.updateHappiness(30);
         this.home.updateWellness(10);
         error.setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_GuessActionPerformed
 
 
