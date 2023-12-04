@@ -142,7 +142,7 @@ public final class InventoryAvatar extends javax.swing.JFrame {
         String avatarName = AvatarList.getSelectedValue();
         if (avatarName == null || avatarName.isEmpty()){
             Error error = new Error();
-            error.SetErrorMsg("Select the avatar");
+            error.SetErrorMsg("Select the TaskFriend");
             error.setVisible(true);
             return;
         }

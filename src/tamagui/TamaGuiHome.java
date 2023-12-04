@@ -86,9 +86,6 @@ public final class TamaGuiHome extends javax.swing.JFrame {
     
     public void updateAvatar(String avatarImagePath, String avatarName){
         if (avatarName == null || avatarName.isEmpty()){
-            Error error = new Error();
-            error.SetErrorMsg("Select the avatar for update");
-            error.setVisible(true);
             return;
         }
         ImageIcon iconLogo = new ImageIcon(

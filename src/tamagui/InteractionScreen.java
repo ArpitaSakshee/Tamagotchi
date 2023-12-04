@@ -70,9 +70,6 @@ public final class InteractionScreen extends javax.swing.JFrame {
 
     public void updateAvatar(String avatarImagePath, String avatarName){
         if (avatarName == null || avatarName.isEmpty()){
-            Error error = new Error();
-            error.SetErrorMsg("Select the avatar");
-            error.setVisible(true);
             return;
         }
         ImageIcon iconLogo = new ImageIcon(new ImageIcon(avatarImagePath).getImage().getScaledInstance(200, 300, Image.SCALE_DEFAULT));
