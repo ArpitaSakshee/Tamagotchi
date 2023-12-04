@@ -63,9 +63,9 @@ public final class InteractionScreen extends javax.swing.JFrame {
             }
        
         }, 0, 1, TimeUnit.SECONDS);
-        this.updateWellness(50);
-        this.updateFullness(50);
-        this.updateHappiness(50);
+        this.updateWellness(100);
+        this.updateFullness(100);
+        this.updateHappiness(100);
     }
 
     public void updateAvatar(String avatarImagePath, String avatarName){
